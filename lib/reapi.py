@@ -38,8 +38,13 @@ class clsSAPI(object):
 	def funOpStatus(self, strHost):
 		# Check operation status
 		strURL = self.strAPIE + self.strAnalyze + strHost
-		strStatus = 'IN_PROGRESS'
-		lstMessages = []
+		try:
+			diOper = json.loads(self.objHS.get(strURL).content)
+			strStatus = diOper['status']
+			lstMessages = [None] * len(diOper['endpoints'])
+			log.funLog(2, 'Total number of endpoints: %s' % len(lstMessages))
+		except Exception as e:
+			log.funLog(2, repr(e), 'err')
 		while strStatus == 'IN_PROGRESS':
 			try:
 				diOper = json.loads(self.objHS.get(strURL).content)
@@ -49,7 +54,7 @@ class clsSAPI(object):
 					if strStatus == 'READY':
 						strIPAddr = diEP['ipAddress']
 						strGrade = diEP['grade']
-						log.funLog(1, '%s, IP: %s, %s' % (strHost, strIPAddr, strGrade))
+						log.funLog(1, '%s, %s, %s' % (strGrade, strHost, strIPAddr))
 					else:
 						try:
 							strDetMess = diEP['statusDetailsMessage']
@@ -58,8 +63,6 @@ class clsSAPI(object):
 								lstMessages[i] = strDetMess
 								log.funLog(3, '%s, IP: %s, %s' % (strHost, strIPAddr, lstMessages[i]))
 							i += 1
-						except IndexError as e:
-							lstMessages.append(strDetMess)
 						except KeyError as e:
 							pass
 			except Exception as e:
