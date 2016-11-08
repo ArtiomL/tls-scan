@@ -38,16 +38,21 @@ class clsSAPI(object):
 	def funOpStatus(self, strHost):
 		# Check operation status
 		strURL = self.strAPIE + self.strAnalyze + strHost
-		try:
-			diOper = json.loads(self.objHS.get(strURL).content)
-			strStatus = diOper['status']
-			if strStatus == 'ERROR':
-				return ['X %s, %s' % (strHost, diOper['statusMessage'])]
+		strStatus = 'DNS'
+		while strStatus == 'DNS':
+			try:
+				diOper = json.loads(self.objHS.get(strURL).content)
+				strStatus = diOper['status']
+				if strStatus == 'READY':
+					return diOper
 
-			lstMessages = [None] * len(diOper['endpoints'])
-			log.funLog(2, 'Total number of endpoints: %s' % len(lstMessages))
-		except Exception as e:
-			log.funLog(2, repr(e), 'err')
+				if strStatus == 'ERROR':
+					return ['X %s, %s' % (strHost, diOper['statusMessage'])]
+
+				lstMessages = [None] * len(diOper['endpoints'])
+				log.funLog(2, 'Total number of endpoints: %s' % len(lstMessages))
+			except Exception as e:
+				log.funLog(2, repr(e), 'err')
 		while strStatus == 'IN_PROGRESS':
 			try:
 				diOper = json.loads(self.objHS.get(strURL).content)
