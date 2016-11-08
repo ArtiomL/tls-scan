@@ -5,8 +5,8 @@
 # v0.0.2, 08/11/2016
 
 import json
-import requests
 import log
+import requests
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
@@ -32,6 +32,7 @@ class clsSAPI(object):
 			objHResp = self.objHS.get(self.strAPIE + self.strAnalyze + strHost + self.strAnStNew)
 			if objHResp.status_code == 200:
 				return json.loads(objHResp.content)['statusMessage']
+
 		except Exception as e:
 			log.funLog(2, repr(e), 'err')
 
