@@ -1,4 +1,4 @@
-# <img align="center" src="img/a.png" height="64">&nbsp;&nbsp;tls-scan
+# <img align="center" src="img/ap.png">&nbsp;&nbsp;tls-scan
 [![Releases](https://img.shields.io/github/release/ArtiomL/tls-scan.svg)](https://github.com/ArtiomL/tls-scan/releases)
 [![Commits](https://img.shields.io/github/commits-since/ArtiomL/tls-scan/v12.1.3.svg?label=commits%20since)](https://github.com/ArtiomL/tls-scan/commits/master)
 [![Maintenance](https://img.shields.io/maintenance/yes/2016.svg)](https://github.com/ArtiomL/tls-scan/graphs/code-frequency)
