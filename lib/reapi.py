@@ -41,6 +41,9 @@ class clsSAPI(object):
 		try:
 			diOper = json.loads(self.objHS.get(strURL).content)
 			strStatus = diOper['status']
+			if strStatus == 'ERROR':
+				return ['X %s, %s' % (strHost, diOper['statusMessage'])]
+
 			lstMessages = [None] * len(diOper['endpoints'])
 			log.funLog(2, 'Total number of endpoints: %s' % len(lstMessages))
 		except Exception as e:
@@ -51,21 +54,20 @@ class clsSAPI(object):
 				strStatus = diOper['status']
 				i = 0
 				for diEP in diOper['endpoints']:
+					strStaMess = diEP['statusMessage']
 					if strStatus == 'READY':
-						strIPAddr = diEP['ipAddress']
-						strGrade = diEP['grade']
-						log.funLog(1, '%s, %s, %s' % (strGrade, strHost, strIPAddr))
+						strGrade = 'X'
+						if strStaMess == 'Ready':
+							strGrade = diEP['grade']
+						lstMessages[i] = '%s %s, %s, %s' % (strGrade, strHost, diEP['ipAddress'], strStaMess)
+						i += 1
 					else:
-						try:
+						if strStaMess == 'In progress':
 							strDetMess = diEP['statusDetailsMessage']
-							strIPAddr = diEP['ipAddress']
 							if strDetMess != lstMessages[i]:
 								lstMessages[i] = strDetMess
-								log.funLog(3, '%s, IP: %s, %s' % (strHost, strIPAddr, lstMessages[i]))
+								log.funLog(3, '%s, IP: %s, %s' % (strHost, diEP['ipAddress'], lstMessages[i]))
 							i += 1
-						except KeyError as e:
-							pass
 			except Exception as e:
 				log.funLog(2, repr(e), 'err')
-		log.funLog(1, strStatus)
-		return strStatus
+		return lstMessages
