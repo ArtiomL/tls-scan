@@ -3,3 +3,5 @@
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
 # v0.0.0, 08/11/2016
+
+import lib.log as log
