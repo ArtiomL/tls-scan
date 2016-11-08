@@ -2,7 +2,7 @@
 # tls-scan - lib: Logging
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.0, 07/11/2016
+# v1.0.0, 08/11/2016
 
 import subprocess
 import time
@@ -14,7 +14,7 @@ __version__ = '1.0.0'
 # Log level to /var/log/messages (or stdout)
 intLogLevel = 0
 strLogMethod = 'log'
-strLogID = '[-v%s-161107-] - ' % __version__
+strLogID = '[-v%s-161108-] - ' % __version__
 
 # Logger command
 strLogger = 'logger -p local0.'
