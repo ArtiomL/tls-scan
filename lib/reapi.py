@@ -57,22 +57,19 @@ class clsSAPI(object):
 			try:
 				diOper = json.loads(self.objHS.get(strURL).content)
 				strStatus = diOper['status']
-				i = 0
-				for diEP in diOper['endpoints']:
+				for i, diEP in enumerate(diOper['endpoints']):
 					strStaMess = diEP['statusMessage']
 					if strStatus == 'READY':
 						strGrade = 'X'
 						if strStaMess == 'Ready':
 							strGrade = diEP['grade']
 						lstMessages[i] = '%s %s, %s, %s' % (strGrade, strHost, diEP['ipAddress'], strStaMess)
-						i += 1
 					else:
 						if strStaMess == 'In progress':
 							strDetMess = diEP['statusDetailsMessage']
 							if strDetMess != lstMessages[i]:
 								lstMessages[i] = strDetMess
 								log.funLog(3, '%s, IP: %s, %s' % (strHost, diEP['ipAddress'], lstMessages[i]))
-							i += 1
 			except Exception as e:
 				log.funLog(2, repr(e), 'err')
 		return lstMessages
