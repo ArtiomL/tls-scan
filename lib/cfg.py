@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# tls-scan - lib: Config
+# tls-scan - lib: Config File R/W
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
 # v1.0.0, 08/11/2016
