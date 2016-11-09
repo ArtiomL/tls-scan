@@ -14,7 +14,6 @@ import lib.reapi as reapi
 import os
 import requests
 import signal
-import socket
 import subprocess
 import sys
 import time
