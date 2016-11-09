@@ -2,7 +2,7 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.0.1, 08/11/2016
+# v0.0.1, 09/11/2016
 
 import argparse
 import atexit
