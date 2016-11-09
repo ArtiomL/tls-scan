@@ -22,3 +22,19 @@ import time
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
 __version__ = '0.0.1'
+
+# PID file
+strPFile = ''
+
+# Config file
+strCFile = 'tls_scan.json'
+
+# SSL Labs REST API
+objSAPI = reapi.clsSAPI()
+
+# Exit codes
+class clsExCodes(object):
+	def __init__(self):
+		self.error = 1
+
+objExCodes = clsExCodes()
