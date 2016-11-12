@@ -2,7 +2,7 @@
 # tls-scan - lib: REST API
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.0.3, 12/11/2016
+# v0.0.3, 13/11/2016
 
 import json
 import log
@@ -25,7 +25,7 @@ class clsSAPI(object):
 		self.objHS = requests.session()
 		# Add Content-Type to HTTP headers and modify User-Agent
 		self.objHS.headers.update({ 'Content-Type': 'application/json', 'User-Agent': 'tls-scan v%s' % __version__ })
-		# 
+		# Return full assessment JSON (only grades by default)
 		self.boolJSON = False
 
 	def funAnalyze(self, strHost):
@@ -57,11 +57,7 @@ class clsSAPI(object):
 				diOper = json.loads(self.objHS.get(strURL).content)
 				strStatus = diOper['status']
 				log.funLog(3, 'Transaction status: %s' % strStatus)
-				if strStatus == 'READY':
-					# Cached result (from 'DNS' to 'READY')
-					return diOper if self.boolJSON else self.funGrades(diOper)
-
-				elif strStatus == 'ERROR':
+				if strStatus == 'ERROR':
 					return ['X %s, %s' % (strHost, diOper['statusMessage'])]
 
 			except Exception as e:
@@ -73,18 +69,12 @@ class clsSAPI(object):
 				diOper = json.loads(self.objHS.get(strURL).content)
 				strStatus = diOper['status']
 				for i, diEP in enumerate(diOper['endpoints']):
-					strStaMess = diEP['statusMessage']
-					if strStatus == 'READY':
-						strGrade = 'X'
-						if strStaMess == 'Ready':
-							strGrade = diEP['grade']
-						lstMessages[i] = '%s %s, %s, %s' % (strGrade, strHost, diEP['ipAddress'], strStaMess)
-					else:
-						if strStaMess == 'In progress':
-							strDetMess = diEP['statusDetailsMessage']
-							if strDetMess != lstMessages[i]:
-								lstMessages[i] = strDetMess
-								log.funLog(3, '%s, IP: %s, %s' % (strHost, diEP['ipAddress'], lstMessages[i]))
+					if diEP['statusMessage'] == 'In progress':
+						strDetMess = diEP['statusDetailsMessage']
+						if strDetMess != lstMessages[i]:
+							lstMessages[i] = strDetMess
+							log.funLog(3, '%s, IP: %s, %s' % (strHost, diEP['ipAddress'], lstMessages[i]))
 			except Exception as e:
 				log.funLog(2, repr(e), 'err')
-		return lstMessages
+		if strStatus == 'READY':
+			return diOper if self.boolJSON else self.funGrades(diOper)
