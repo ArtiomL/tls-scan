@@ -65,3 +65,16 @@ def main():
 
 	if objArgs.HOST:
 		lstHosts = objArgs.HOST
+
+@atexit.register
+def funExit():
+	try:
+		os.remove(strPFile)
+		funLog(2, 'PIDFile: %s removed on exit.' % strPFile)
+	except OSError:
+		pass
+	funLog(1, 'Exiting...')
+
+
+if __name__ == '__main__':
+	main()
