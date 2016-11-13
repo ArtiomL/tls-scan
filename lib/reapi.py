@@ -7,6 +7,7 @@
 import json
 import log
 import requests
+import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
@@ -30,14 +31,20 @@ class clsSAPI(object):
 
 	def funAnalyze(self, strHost):
 		# Initiate a new assessment for a host
-		try:
-			objHResp = self.objHS.get(self.strAPIE + self.strAnalyze + strHost + self.strAnStNew)
-			if objHResp.status_code == 200:
-				log.funLog(1, 'New assessment started for %s: %s' % (strHost, json.loads(objHResp.content)['statusMessage']))
-				return True
+		intSleep = 0
+		while True:
+			try:
+				objHResp = self.objHS.get(self.strAPIE + self.strAnalyze + strHost + self.strAnStNew)
+				if objHResp.status_code == 429:
+					# Request rate too high
+					intSleep += 1
+					time.sleep(intSleep)
+				elif objHResp.status_code == 200:
+					log.funLog(1, 'New assessment started for %s: %s' % (strHost, json.loads(objHResp.content)['statusMessage']))
+					return True
 
-		except Exception as e:
-			log.funLog(2, repr(e), 'err')
+			except Exception as e:
+				log.funLog(2, repr(e), 'err')
 
 	def funGrades(self, diOper):
 		# Parse endpoints to get the grades
