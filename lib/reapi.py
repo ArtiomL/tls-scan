@@ -38,6 +38,7 @@ class clsSAPI(object):
 				if objHResp.status_code == 429:
 					# Request rate too high
 					intSleep += 1
+					log.funLog(2, 'Request rate too high! Sleeping for %s seconds.' % str(intSleep))
 					time.sleep(intSleep)
 				elif objHResp.status_code == 200:
 					log.funLog(1, 'New assessment started for %s: %s' % (strHost, json.loads(objHResp.content)['statusMessage']))
