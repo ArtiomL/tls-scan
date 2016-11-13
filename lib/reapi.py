@@ -33,7 +33,8 @@ class clsSAPI(object):
 		try:
 			objHResp = self.objHS.get(self.strAPIE + self.strAnalyze + strHost + self.strAnStNew)
 			if objHResp.status_code == 200:
-				return json.loads(objHResp.content)['statusMessage']
+				log.funLog(1, 'New assessment started for %s: %s' % (strHost, json.loads(objHResp.content)['statusMessage']))
+				return True
 
 		except Exception as e:
 			log.funLog(2, repr(e), 'err')
