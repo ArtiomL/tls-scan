@@ -6,18 +6,13 @@
 
 import argparse
 import atexit
-import datetime
 import json
 import lib.cfg as cfg
 import lib.log as log
 import lib.reapi as reapi
 import os
-import requests
 import signal
-import socket
-import subprocess
 import sys
-import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
@@ -70,3 +65,77 @@ def main():
 
 	if objArgs.HOST:
 		lstHosts = objArgs.HOST
+
+
+
+	# eMonitor mode
+	try:
+		# Remove IPv6/IPv4 compatibility prefix (LTM passes addresses in IPv6 format)
+		strRIP = objArgs.IP.strip(':f')
+		# Verify first positional argument is a valid (peer) IP address
+		socket.inet_pton(socket.AF_INET, strRIP)
+	except (AttributeError, socket.error) as e:
+		funLog(0, 'No valid peer IP! (use --help)', 'err')
+		funLog(2, repr(e), 'err')
+		sys.exit(objExCodes.rip)
+
+	# Verify second positional argument is a valid TCP port, set to 443 if not
+	strRPort = str(objArgs.PORT)
+	if not 0 < objArgs.PORT <= 65535:
+		funLog(1, 'No valid peer TCP port, using 443.', 'warning')
+		strRPort = '443'
+
+	# PID file
+	strPFile = '_'.join(['/var/run/', os.path.basename(sys.argv[0]), strRIP, strRPort + '.pid'])
+	# PID
+	strPID = str(os.getpid())
+
+	funLog(2, 'PIDFile: %s, PID: %s' % (strPFile, strPID))
+
+	# Kill the last instance of this monitor if hung
+	if os.path.isfile(strPFile):
+		try:
+			os.kill(int(file(strPFile, 'r').read()), signal.SIGKILL)
+			funLog(1, 'Killed the last hung instance of this monitor.', 'warning')
+		except OSError:
+			pass
+
+	# Record current PID
+	file(strPFile, 'w').write(str(os.getpid()))
+
+	# Health monitor
+	try:
+		objHResp = requests.head(''.join(['https://', strRIP, ':', strRPort]), verify = False)
+		if objHResp.status_code == 200:
+			os.remove(strPFile)
+			# Any standard output stops the script from running. Clean up any temporary files before the standard output operation
+			funLog(2, 'Peer: %s is up.' % strRIP)
+			print 'UP'
+			sys.exit()
+
+	except requests.exceptions.RequestException as e:
+		funLog(2, repr(e), 'err')
+
+	# Peer down, ARM action required
+	funLog(1, 'Peer down, ARM action required.', 'warning')
+	funRunAuth()
+
+	if funCurState([funLocIP(strRIP), strRIP]) == 'Standby':
+		funLog(1, 'We\'re Standby in ARM, Active peer down. Trying to failover...', 'warning')
+		funFailover()
+
+	sys.exit(1)
+
+
+@atexit.register
+def funExit():
+	try:
+		os.remove(strPFile)
+		funLog(2, 'PIDFile: %s removed on exit.' % strPFile)
+	except OSError:
+		pass
+	funLog(1, 'Exiting...')
+
+
+if __name__ == '__main__':
+	main()
