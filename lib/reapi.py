@@ -40,6 +40,7 @@ class clsSAPI(object):
 			log.funLog(2, repr(e), 'err')
 
 	def funGrades(self, diOper):
+		# Parse endpoints to get the grades
 		lstGrades = []
 		for diEP in diOper['endpoints']:
 			strStaMess = diEP['statusMessage']
