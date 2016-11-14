@@ -38,7 +38,7 @@ class clsSAPI(object):
 		try:
 			objHResp = json.loads(self.objHS.get(self.strAPIE + self.strInfo).content)
 			self.intSleep = objHResp['newAssessmentCoolOff'] / 1000
-			log.funLog(2, 'Cool-off period after each new assessment: %s' % self.intSleep)
+			log.funLog(2, 'Cool-off period after each new assessment: %s sec.' % self.intSleep)
 			return True if objHResp['currentAssessments'] < objHResp['maxAssessments'] else False
 
 		except Exception as e:
@@ -58,7 +58,7 @@ class clsSAPI(object):
 					# Update cool-off period
 					self.funInfo()
 				elif objHResp.status_code == 200:
-					log.funLog(1, 'New assessment started for %s: %s' % (strHost, json.loads(objHResp.content)['statusMessage']))
+					log.funLog(1, 'New assessment started for %s: %s' % (strHost, json.loads(objHResp.content)['status']))
 					return True
 
 				else:
