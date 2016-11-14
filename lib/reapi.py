@@ -2,7 +2,7 @@
 # tls-scan - lib: REST API
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.0.3, 13/11/2016
+# v0.0.4, 14/11/2016
 
 import json
 import log
@@ -11,7 +11,7 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 
 # SSL Labs REST API
 class clsSAPI(object):
@@ -35,8 +35,10 @@ class clsSAPI(object):
 		while True:
 			try:
 				objHResp = self.objHS.get(self.strAPIE + self.strAnalyze + strHost + self.strAnStNew)
-				if objHResp.status_code == 429:
-					# Request rate too high
+				if objHResp.status_code in [429, 503, 529]:
+					# 429 - client request rate too high or too many new assessments too fast
+					# 503 - the service is not available (e.g. down for maintenance)
+					# 529 - the service is overloaded
 					intSleep += 1
 					log.funLog(2, 'Request rate too high! Sleeping for %s seconds.' % str(intSleep))
 					time.sleep(intSleep)
