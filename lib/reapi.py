@@ -52,6 +52,7 @@ class clsSAPI(object):
 
 			except Exception as e:
 				log.funLog(2, repr(e), 'err')
+				break
 
 	def funGrades(self, diOper):
 		# Parse endpoints to get the grades
@@ -61,7 +62,7 @@ class clsSAPI(object):
 			strGrade = 'X'
 			if strStaMess == 'Ready':
 				strGrade = diEP['grade']
-			lstGrades.append('%s %s, %s, %s' % (strGrade, diOper['host'], diEP['ipAddress'], strStaMess))
+			lstGrades.append('[%s] %s, %s, %s' % (strGrade, diOper['host'], diEP['ipAddress'], strStaMess))
 		return lstGrades
 
 	def funOpStatus(self, strHost):
@@ -75,7 +76,7 @@ class clsSAPI(object):
 				strStatus = diOper['status']
 				log.funLog(3, 'Transaction status: %s' % strStatus)
 				if strStatus == 'ERROR':
-					return ['X %s, %s' % (strHost, diOper['statusMessage'])]
+					return ['[X] %s, %s' % (strHost, diOper['statusMessage'])]
 
 			except Exception as e:
 				log.funLog(2, repr(e), 'err')
