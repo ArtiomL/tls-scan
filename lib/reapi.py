@@ -40,11 +40,15 @@ class clsSAPI(object):
 					# 503 - the service is not available (e.g. down for maintenance)
 					# 529 - the service is overloaded
 					intSleep += 1
-					log.funLog(2, 'Request rate too high! Sleeping for %s seconds.' % str(intSleep))
+					log.funLog(2, 'Request rate too high or service unavailable [%s]! Sleeping for %s sec.' % (str(objHResp.status_code), str(intSleep)))
 					time.sleep(intSleep)
 				elif objHResp.status_code == 200:
 					log.funLog(1, 'New assessment started for %s: %s' % (strHost, json.loads(objHResp.content)['statusMessage']))
 					return True
+
+				else:
+					log.funLog(2, 'New assessment failed for %s [%s]' % (strHost, str(objHResp.status_code)))
+					return False
 
 			except Exception as e:
 				log.funLog(2, repr(e), 'err')
