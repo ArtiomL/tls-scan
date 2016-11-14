@@ -53,10 +53,9 @@ def main():
 	# If run interactively, stdout is used for log messages
 	if sys.stdout.isatty():
 		log.strLogMethod = 'stdout'
-		log.intLogLevel = 1
 
 	# Set log level
-	if objArgs.log > 0:
+	if objArgs.log:
 		log.intLogLevel = objArgs.log
 
 	# Config file location
