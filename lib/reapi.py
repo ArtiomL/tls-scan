@@ -19,7 +19,7 @@ class clsSAPI(object):
 		# API entry point
 		self.strAPIE = 'https://api.ssllabs.com/api/v2/'
 		# API call: info
-		self.strInfo = 'inf'
+		self.strInfo = 'info'
 		# API call: analyze
 		self.strAnalyze = 'analyze?publish=off&all=done&host='
 		# Parameter to initiate a new assessment
