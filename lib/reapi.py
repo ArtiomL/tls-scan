@@ -28,12 +28,24 @@ class clsSAPI(object):
 		self.objHS = requests.session()
 		# Add Content-Type to HTTP headers and modify User-Agent
 		self.objHS.headers.update({ 'Content-Type': 'application/json', 'User-Agent': 'tls-scan v%s' % __version__ })
+		# Cool-off period after each new assessment (in sec.)
+		self.intSleep = 1
 		# Return full assessment JSON (only grades by default)
 		self.boolJSON = False
 
+	def funInfo(self):
+		# Check availability of SSL Labs servers
+		try:
+			objHResp = json.loads(self.objHS.get(self.strAPIE + self.strInfo).content)
+			self.intSleep = objHResp['newAssessmentCoolOff'] / 1000
+			log.funLog(2, 'Cool-off period after each new assessment: %s' % self.intSleep)
+			return True if objHResp['currentAssessments'] < objHResp['maxAssessments'] else False
+
+		except Exception as e:
+			log.funLog(2, repr(e), 'err')
+
 	def funAnalyze(self, strHost):
 		# Initiate a new assessment for a host
-		intSleep = 0
 		while True:
 			try:
 				objHResp = self.objHS.get(self.strAPIE + self.strAnalyze + strHost + self.strAnStNew)
@@ -41,9 +53,10 @@ class clsSAPI(object):
 					# 429 - client request rate too high or too many new assessments too fast
 					# 503 - the service is not available (e.g. down for maintenance)
 					# 529 - the service is overloaded
-					intSleep += 1
-					log.funLog(2, 'Request rate too high or service unavailable [%s]! Sleeping for %s sec.' % (str(objHResp.status_code), str(intSleep)))
-					time.sleep(intSleep)
+					log.funLog(2, 'Request rate too high or service unavailable [%s]! Sleeping for %s sec.' % (str(objHResp.status_code), str(self.intSleep)))
+					time.sleep(self.intSleep)
+					# Update cool-off period
+					self.funInfo()
 				elif objHResp.status_code == 200:
 					log.funLog(1, 'New assessment started for %s: %s' % (strHost, json.loads(objHResp.content)['statusMessage']))
 					return True
