@@ -2,10 +2,9 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.0.3, 14/11/2016
+# v0.0.5, 15/11/2016
 
 import argparse
-import atexit
 import json
 import lib.cfg as cfg
 import lib.log as log
@@ -16,16 +15,13 @@ import sys
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '0.0.3'
-
-# PID file
-strPFile = ''
+__version__ = '0.0.5'
 
 # Config file
 strCFile = 'tls_scan.json'
 
 # SSL Labs REST API
-objSAPI = reapi.clsSAPI()
+objSLA = reapi.clsSLA()
 
 # Exit codes
 class clsExCodes(object):
@@ -39,7 +35,7 @@ def funArgParser():
 	objArgParser = argparse.ArgumentParser(
 		description = 'Automated TLS/SSL Server Tests for Multiple Hosts',
 		epilog = 'https://github.com/ArtiomL/tls-scan')
-	objArgParser.add_argument('-c', help ='config file location', dest = 'cfile')
+	objArgParser.add_argument('-f', help ='config file location', dest = 'cfile')
 	objArgParser.add_argument('-l', help ='set log level (default: 0)', choices = [0, 1, 2, 3], type = int, dest = 'log')
 	objArgParser.add_argument('-v', action ='version', version = '%(prog)s v' + __version__)
 	objArgParser.add_argument('HOST', help = 'list of hosts to scan (overrides config file)', nargs = '*')
@@ -47,7 +43,7 @@ def funArgParser():
 
 
 def main():
-	global objSAPI, strPFile, strCFile
+	global objSLA, strCFile
 	objArgs = funArgParser()
 
 	# If run interactively, stdout is used for log messages
@@ -64,15 +60,6 @@ def main():
 
 	if objArgs.HOST:
 		lstHosts = objArgs.HOST
-
-@atexit.register
-def funExit():
-	try:
-		os.remove(strPFile)
-		funLog(2, 'PIDFile: %s removed on exit.' % strPFile)
-	except OSError:
-		pass
-	funLog(1, 'Exiting...')
 
 
 if __name__ == '__main__':
