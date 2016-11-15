@@ -9,8 +9,6 @@ import json
 import lib.cfg as cfg
 import lib.log as log
 import lib.reapi as reapi
-import os
-import signal
 import sys
 
 __author__ = 'Artiom Lichtenstein'
