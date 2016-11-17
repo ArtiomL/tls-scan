@@ -40,7 +40,12 @@ def funDomain(strHost):
 			).match(strHost))
 
 
-
+def funResult(amStatus):
+	if isinstance(amStatus,list):
+		for i in amStatus:
+			print i
+	elif isinstance(amStatus,dict):
+		print json.dumps(amStatus, sort_keys=True, indent=4)
 
 
 def funArgParser():
@@ -93,10 +98,7 @@ def main():
 
 	for i in lstHosts:
 		if funDomain(i):
-			result = objSLA.funOpStatus(i)
-			print type(result)
-			for j in result:
-				print j
+			funResult(objSLA.funOpStatus(i))
 
 
 
