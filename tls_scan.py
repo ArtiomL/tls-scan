@@ -51,7 +51,7 @@ def funArgParser():
 
 
 def main():
-	global objSLA, strCFile
+	global strCFile
 	objArgs = funArgParser()
 
 	# If run interactively, stdout is used for log messages
@@ -65,6 +65,13 @@ def main():
 	# Config file location
 	if objArgs.cfile:
 		strCFile = objArgs.cfile
+
+	# Read config file
+	try:
+		diCfg = cfg.funReadCfg(strCFile)
+		lstHosts = diCfg['hosts']
+	except Exception as e:
+		log.funLog(2, repr(e), 'err')
 
 	if objArgs.HOST:
 		lstHosts = objArgs.HOST
