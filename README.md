@@ -33,3 +33,22 @@ Alternatively, this is controlled by the `intLogLevel` variable of the [log](/li
 intLogLevel = 0
 ```
 If run interactively, **_stdout_** is used for log messages, otherwise `/var/log/messages` will be used.
+
+<br>
+## --help
+```
+usage: tls.py [-h] [-f CFILE] [-l {0,1,2,3}] [-v] [HOST [HOST ...]]
+
+Automated TLS/SSL Server Tests for Multiple Hosts
+
+positional arguments:
+  HOST          list of hosts to scan (overrides config file)
+
+optional arguments:
+  -h, --help    show this help message and exit
+  -f CFILE      config file location
+  -l {0,1,2,3}  set log level (default: 0)
+  -v            show program's version number and exit
+
+https://github.com/ArtiomL/tls-scan
+```
