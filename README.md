@@ -37,7 +37,7 @@ If run interactively, **_stdout_** is used for log messages, otherwise `/var/log
 <br>
 ## --help
 ```
-usage: tls.py [-h] [-f CFILE] [-l {0,1,2,3}] [-v] [HOST [HOST ...]]
+usage: tls_scan.py [-h] [-f CFILE] [-l {0,1,2,3}] [-v] [HOST [HOST ...]]
 
 Automated TLS/SSL Server Tests for Multiple Hosts
 
