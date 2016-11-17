@@ -27,7 +27,7 @@ git clone https://github.com/ArtiomL/tls-scan.git
 <br>
 ## Logging
 All logging is **disabled** by default. Please use the `-l {0,1,2,3}` argument to set the required verbosity.<br>
-Alternatively, this is controlled by the global `intLogLevel` variable of the [log](/lib/log.py) library:
+Alternatively, this is controlled by the `intLogLevel` variable of the [log](/lib/log.py) library:
 ```python
 # Log level to /var/log/messages (or stdout)
 intLogLevel = 0
