@@ -2,19 +2,18 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.0.7, 17/11/2016
+# v0.0.8, 18/11/2016
 
 import argparse
 import json
 import lib.cfg as cfg
 import lib.log as log
 import lib.reapi as reapi
-import re
 import sys
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '0.0.7'
+__version__ = '0.0.8'
 
 # Config file
 strCFile = 'tls_scan.json'
@@ -31,21 +30,12 @@ class clsExCodes(object):
 objExCodes = clsExCodes()
 
 
-def funDomain(strHost):
-	return bool(re.compile(
-				r'^(([a-zA-Z]{1})|([a-zA-Z]{1}[a-zA-Z]{1})|'
-				r'([a-zA-Z]{1}[0-9]{1})|([0-9]{1}[a-zA-Z]{1})|'
-				r'([a-zA-Z0-9][-_.a-zA-Z0-9]{0,61}[a-zA-Z0-9]))\.'
-				r'([a-zA-Z]{2,13}|[a-zA-Z0-9-]{2,30}.[a-zA-Z]{2,3})$'
-			).match(strHost))
-
-
 def funResult(amStatus):
 	if isinstance(amStatus,list):
 		for i in amStatus:
 			print i
 	elif isinstance(amStatus,dict):
-		print json.dumps(amStatus, sort_keys=True, indent=4)
+		print json.dumps(amStatus, indent=4)
 
 
 def funArgParser():
@@ -97,9 +87,8 @@ def main():
 
 
 	for i in lstHosts:
-		if funDomain(i):
+		if objSLA.funDomain(i):
 			funResult(objSLA.funOpStatus(i))
-
 
 
 if __name__ == '__main__':
