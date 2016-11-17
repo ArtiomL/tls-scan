@@ -23,3 +23,13 @@ Automated TLS/SSL server tests for multiple hosts using the SSL Labs [API](https
 ```shell
 git clone https://github.com/ArtiomL/tls-scan.git
 ```
+
+<br>
+## Logging
+All logging is **disabled** by default. Please use the `-l {0,1,2,3}` argument to set the required verbosity.<br>
+Alternatively, this is controlled by the global `intLogLevel` variable:
+```python
+# Log level to /var/log/messages (or stdout)
+intLogLevel = 0
+```
+If run interactively, **_stdout_** is used for log messages, otherwise `/var/log/messages` will be used.
