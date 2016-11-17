@@ -2,18 +2,19 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.0.5, 15/11/2016
+# v0.0.7, 17/11/2016
 
 import argparse
 import json
 import lib.cfg as cfg
 import lib.log as log
 import lib.reapi as reapi
+import re
 import sys
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '0.0.5'
+__version__ = '0.0.7'
 
 # Config file
 strCFile = 'tls_scan.json'
@@ -27,6 +28,15 @@ class clsExCodes(object):
 		self.error = 1
 
 objExCodes = clsExCodes()
+
+
+def funDomain(strHost):
+	return bool(re.compile(
+				r'^(([a-zA-Z]{1})|([a-zA-Z]{1}[a-zA-Z]{1})|'
+				r'([a-zA-Z]{1}[0-9]{1})|([0-9]{1}[a-zA-Z]{1})|'
+				r'([a-zA-Z0-9][-_.a-zA-Z0-9]{0,61}[a-zA-Z0-9]))\.'
+				r'([a-zA-Z]{2,13}|[a-zA-Z0-9-]{2,30}.[a-zA-Z]{2,3})$'
+			).match(strHost))
 
 
 def funArgParser():
