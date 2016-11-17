@@ -43,7 +43,7 @@ def funArgParser():
 		description = 'Automated TLS/SSL Server Tests for Multiple Hosts',
 		epilog = 'https://github.com/ArtiomL/tls-scan')
 	objArgParser.add_argument('-f', help ='config file location', dest = 'cfile')
-	objArgParser.add_argument('-j', help ='return full assessment JSON (only grades by default)', action = 'store_true', dest = 'json')
+	objArgParser.add_argument('-j', help ='return full assessment JSON (default: grades only)', action = 'store_true', dest = 'json')
 	objArgParser.add_argument('-l', help ='set log level (default: 0)', choices = [0, 1, 2, 3], type = int, dest = 'log')
 	objArgParser.add_argument('-v', action ='version', version = '%(prog)s v' + __version__)
 	objArgParser.add_argument('HOST', help = 'list of hosts to scan (overrides config file)', nargs = '*')
