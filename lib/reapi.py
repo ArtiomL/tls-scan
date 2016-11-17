@@ -2,7 +2,7 @@
 # tls-scan - lib: REST API
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.0.5, 15/11/2016
+# v0.0.6, 18/11/2016
 
 import json
 import log
@@ -11,7 +11,7 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '0.0.5'
+__version__ = '0.0.6'
 
 # SSL Labs REST API
 class clsSLA(object):
@@ -69,7 +69,8 @@ class clsSLA(object):
 				log.funLog(2, repr(e), 'err')
 				break
 
-	def funGrades(self, diOper):
+	@staticmethod
+	def funGrades(diOper):
 		# Parse endpoints to get the grades
 		lstGrades = []
 		for diEP in diOper['endpoints']:
@@ -112,3 +113,13 @@ class clsSLA(object):
 				log.funLog(2, repr(e), 'err')
 		if strStatus == 'READY':
 			return diOper if self.boolJSON else self.funGrades(diOper)
+
+	@staticmethod
+	def funDomain(strHost):
+		# Validate domain name
+		return bool(re.compile(
+				r'^(([a-zA-Z]{1})|([a-zA-Z]{1}[a-zA-Z]{1})|'
+				r'([a-zA-Z]{1}[0-9]{1})|([0-9]{1}[a-zA-Z]{1})|'
+				r'([a-zA-Z0-9][-_.a-zA-Z0-9]{0,61}[a-zA-Z0-9]))\.'
+				r'([a-zA-Z]{2,13}|[a-zA-Z0-9-]{2,30}.[a-zA-Z]{2,3})$'
+			).match(strHost))
