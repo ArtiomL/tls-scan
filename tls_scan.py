@@ -25,7 +25,8 @@ objSLA = reapi.clsSLA()
 # Exit codes
 class clsExCodes(object):
 	def __init__(self):
-		self.error = 1
+		self.cfile = 10
+		self.nosrv = 8
 
 objExCodes = clsExCodes()
 
@@ -39,11 +40,15 @@ def funDomain(strHost):
 			).match(strHost))
 
 
+
+
+
 def funArgParser():
 	objArgParser = argparse.ArgumentParser(
 		description = 'Automated TLS/SSL Server Tests for Multiple Hosts',
 		epilog = 'https://github.com/ArtiomL/tls-scan')
 	objArgParser.add_argument('-f', help ='config file location', dest = 'cfile')
+	objArgParser.add_argument('-j', help ='return full assessment JSON (only grades by default)', action = 'store_true', dest = 'json')
 	objArgParser.add_argument('-l', help ='set log level (default: 0)', choices = [0, 1, 2, 3], type = int, dest = 'log')
 	objArgParser.add_argument('-v', action ='version', version = '%(prog)s v' + __version__)
 	objArgParser.add_argument('HOST', help = 'list of hosts to scan (overrides config file)', nargs = '*')
@@ -51,7 +56,7 @@ def funArgParser():
 
 
 def main():
-	global strCFile
+	global objSLA, strCFile
 	objArgs = funArgParser()
 
 	# If run interactively, stdout is used for log messages
@@ -61,6 +66,9 @@ def main():
 	# Set log level
 	if objArgs.log:
 		log.intLogLevel = objArgs.log
+
+	# Full assessment JSON argument
+	objSLA.boolJSON = objArgs.json
 
 	# Config file location
 	if objArgs.cfile:
@@ -72,9 +80,24 @@ def main():
 		lstHosts = diCfg['hosts']
 	except Exception as e:
 		log.funLog(2, repr(e), 'err')
+		sys.exit(objExCodes.cfile)
 
+
+	# List of hosts to scan (override)
 	if objArgs.HOST:
 		lstHosts = objArgs.HOST
+
+	if not objSLA.funInfo():
+		sys.exit(objExCodes.nosrv)
+
+
+	for i in lstHosts:
+		if funDomain(i):
+			result = objSLA.funOpStatus(i)
+			print type(result)
+			for j in result:
+				print j
+
 
 
 if __name__ == '__main__':
