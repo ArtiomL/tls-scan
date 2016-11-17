@@ -35,7 +35,7 @@ def funResult(amStatus):
 		for i in amStatus:
 			print i
 	elif isinstance(amStatus,dict):
-		print json.dumps(amStatus, indent=4)
+		print json.dumps(amStatus, indent = 4)
 
 
 def funArgParser():
