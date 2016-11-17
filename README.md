@@ -38,7 +38,7 @@ If run interactively, **_stdout_** is used for log messages, otherwise `/var/log
 ## --help
 ```
 ./tls_scan.py --help
-usage: tls_scan.py [-h] [-f CFILE] [-l {0,1,2,3}] [-v] [HOST [HOST ...]]
+usage: tls_scan.py [-h] [-f CFILE] [-j] [-l {0,1,2,3}] [-v] [HOST [HOST ...]]
 
 Automated TLS/SSL Server Tests for Multiple Hosts
 
@@ -48,6 +48,7 @@ positional arguments:
 optional arguments:
   -h, --help    show this help message and exit
   -f CFILE      config file location
+  -j            return full assessment JSON (default: grades only)
   -l {0,1,2,3}  set log level (default: 0)
   -v            show program's version number and exit
 
