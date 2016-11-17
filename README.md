@@ -4,6 +4,15 @@
 [![Maintenance](https://img.shields.io/maintenance/yes/2016.svg)](https://github.com/ArtiomL/tls-scan/graphs/code-frequency)
 [![Issues](https://img.shields.io/github/issues/ArtiomL/tls-scan.svg)](https://github.com/ArtiomL/tls-scan/issues)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+
+<br>
+## Table of Contents
+- [Description](#description)
+- [Installation](#installation)
+- [Logging](#logging)
+- [Help](#--help)
+- [License](LICENSE)
+
 <br>
 ## Description
 
