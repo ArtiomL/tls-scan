@@ -70,8 +70,8 @@ def main():
 		strCFile = objArgs.cfile
 
 	# Read config file
+	diCfg = cfg.funReadCfg(strCFile)
 	try:
-		diCfg = cfg.funReadCfg(strCFile)
 		lstHosts = diCfg['hosts']
 	except Exception as e:
 		log.funLog(1, 'Invalid config file: %s' % strCFile, 'err')
