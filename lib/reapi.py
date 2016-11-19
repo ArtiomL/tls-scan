@@ -31,7 +31,7 @@ class clsSLA(object):
 		self.objHS.headers.update({ 'Content-Type': 'application/json', 'User-Agent': 'tls-scan v%s' % __version__ })
 		# Cool-off period after each new assessment (in sec.)
 		self.intCool = 1
-		# Polling interval
+		# Polling interval (in sec.)
 		self.intPoll = 5
 		# Return full assessment JSON (only grades by default)
 		self.boolJSON = False
