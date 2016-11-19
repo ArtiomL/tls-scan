@@ -85,6 +85,7 @@ def main():
 		lstHosts = objArgs.HOST
 
 	if not objSLA.funInfo():
+		log.funLog(1, 'SSL Labs unavailable or maximum concurrent assessments exceeded.', 'err')
 		sys.exit(objExCodes.nosrv)
 
 
