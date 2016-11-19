@@ -31,10 +31,10 @@ objExCodes = clsExCodes()
 
 
 def funResult(amStatus):
-	if isinstance(amStatus,list):
+	if isinstance(amStatus, list):
 		for i in amStatus:
 			print i
-	elif isinstance(amStatus,dict):
+	elif isinstance(amStatus, dict):
 		print json.dumps(amStatus, indent = 4)
 
 
@@ -42,6 +42,7 @@ def funArgParser():
 	objArgParser = argparse.ArgumentParser(
 		description = 'Automated TLS/SSL Server Tests for Multiple Hosts',
 		epilog = 'https://github.com/ArtiomL/tls-scan')
+	objArgParser.add_argument('-c', help ='deliver cached assessment reports if available', action = 'store_true', dest = 'cache')
 	objArgParser.add_argument('-f', help ='config file location', dest = 'cfile')
 	objArgParser.add_argument('-j', help ='return full assessment JSON (default: grades only)', action = 'store_true', dest = 'json')
 	objArgParser.add_argument('-l', help ='set log level (default: 0)', choices = [0, 1, 2, 3], type = int, dest = 'log')
@@ -90,6 +91,8 @@ def main():
 	for i in lstHosts:
 		if not objSLA.funValid(i):
 			log.funLog(1, 'Invalid hostname: %s' % i, 'err')
+			continue
+		if not objArgs.cache and not objSLA.funAnalyze(i):
 			continue
 		funResult(objSLA.funOpStatus(i))
 
