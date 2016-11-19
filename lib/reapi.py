@@ -63,7 +63,7 @@ class clsSLA(object):
 					return True
 
 				else:
-					log.funLog(2, 'New assessment failed for %s [%s]' % (strHost, str(objHResp.status_code)))
+					log.funLog(1, 'New assessment failed for %s [%s]' % (strHost, str(objHResp.status_code)))
 					return False
 
 			except Exception as e:
