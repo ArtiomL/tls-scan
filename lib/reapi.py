@@ -2,7 +2,7 @@
 # tls-scan - lib: REST API
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.0.6, 18/11/2016
+# v0.0.7, 20/11/2016
 
 import json
 import log
@@ -12,7 +12,7 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '0.0.6'
+__version__ = '0.0.7'
 
 # SSL Labs REST API
 class clsSLA(object):
@@ -30,7 +30,9 @@ class clsSLA(object):
 		# Add Content-Type to HTTP headers and modify User-Agent
 		self.objHS.headers.update({ 'Content-Type': 'application/json', 'User-Agent': 'tls-scan v%s' % __version__ })
 		# Cool-off period after each new assessment (in sec.)
-		self.intSleep = 1
+		self.intCool = 1
+		# Polling interval
+		self.intPoll = 5
 		# Return full assessment JSON (only grades by default)
 		self.boolJSON = False
 
@@ -38,8 +40,8 @@ class clsSLA(object):
 		# Check availability of SSL Labs servers
 		try:
 			objHResp = json.loads(self.objHS.get(self.strAPIE + self.strInfo).content)
-			self.intSleep = objHResp['newAssessmentCoolOff'] / 1000
-			log.funLog(2, 'Cool-off period after each new assessment: %s sec.' % self.intSleep)
+			self.intCool = objHResp['newAssessmentCoolOff'] / 1000
+			log.funLog(2, 'Cool-off period after each new assessment: %s sec.' % self.intCool)
 			return True if objHResp['currentAssessments'] < objHResp['maxAssessments'] else False
 
 		except Exception as e:
@@ -54,8 +56,8 @@ class clsSLA(object):
 					# 429 - client request rate too high or too many new assessments too fast
 					# 503 - the service is not available (e.g. down for maintenance)
 					# 529 - the service is overloaded
-					log.funLog(2, 'Request rate too high or service unavailable [%s]! Sleeping for %s sec.' % (str(objHResp.status_code), str(self.intSleep)))
-					time.sleep(self.intSleep)
+					log.funLog(2, 'Request rate too high or service unavailable [%s]! Sleeping for %s sec.' % (str(objHResp.status_code), str(self.intCool)))
+					time.sleep(self.intCool)
 					# Update cool-off period
 					self.funInfo()
 				elif objHResp.status_code == 200:
@@ -102,12 +104,15 @@ class clsSLA(object):
 		log.funLog(2, 'Total number of endpoints: %s' % len(lstMessages))
 		while strStatus == 'IN_PROGRESS':
 			try:
-				for i, diEP in enumerate(diOper['endpoints']):
-					if diEP['statusMessage'] == 'In progress':
-						strDetMess = diEP['statusDetailsMessage']
-						if strDetMess != lstMessages[i]:
-							lstMessages[i] = strDetMess
-							log.funLog(3, '%s, IP: %s, %s' % (strHost, diEP['ipAddress'], lstMessages[i]))
+				if log.funLog.intLogLevel >= 3:
+					for i, diEP in enumerate(diOper['endpoints']):
+						if diEP['statusMessage'] == 'In progress':
+							strDetMess = diEP['statusDetailsMessage']
+							if strDetMess != lstMessages[i]:
+								lstMessages[i] = strDetMess
+								log.funLog(3, '%s, IP: %s, %s' % (strHost, diEP['ipAddress'], lstMessages[i]))
+				else:
+					time.sleep(self.intPoll)
 				diOper = json.loads(self.objHS.get(strURL).content)
 				strStatus = diOper['status']
 			except Exception as e:
