@@ -104,7 +104,7 @@ class clsSLA(object):
 		log.funLog(2, 'Total number of endpoints: %s' % len(lstMessages))
 		while strStatus == 'IN_PROGRESS':
 			try:
-				if log.funLog.intLogLevel >= 3:
+				if log.intLogLevel >= 3:
 					for i, diEP in enumerate(diOper['endpoints']):
 						if diEP['statusMessage'] == 'In progress':
 							strDetMess = diEP['statusDetailsMessage']
