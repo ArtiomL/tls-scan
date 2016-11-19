@@ -116,8 +116,8 @@ class clsSLA(object):
 			return diOper if self.boolJSON else self.funGrades(diOper)
 
 	@staticmethod
-	def funDomain(strHost):
-		# Validate domain name
+	def funValid(strHost):
+		# Validate hostname
 		return bool(re.compile(
 				r'^(([a-zA-Z]{1})|([a-zA-Z]{1}[a-zA-Z]{1})|'
 				r'([a-zA-Z]{1}[0-9]{1})|([0-9]{1}[a-zA-Z]{1})|'
