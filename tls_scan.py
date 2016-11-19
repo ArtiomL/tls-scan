@@ -2,7 +2,7 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.0.8, 18/11/2016
+# v0.0.9, 19/11/2016
 
 import argparse
 import json
@@ -13,7 +13,7 @@ import sys
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '0.0.8'
+__version__ = '0.0.9'
 
 # Config file
 strCFile = 'tls_scan.json'
@@ -74,6 +74,7 @@ def main():
 		diCfg = cfg.funReadCfg(strCFile)
 		lstHosts = diCfg['hosts']
 	except Exception as e:
+		log.funLog(1, 'Invalid config file: %s' % strCFile, 'err')
 		log.funLog(2, repr(e), 'err')
 		sys.exit(objExCodes.cfile)
 
@@ -87,8 +88,10 @@ def main():
 
 
 	for i in lstHosts:
-		if objSLA.funDomain(i):
-			funResult(objSLA.funOpStatus(i))
+		if not objSLA.funValid(i):
+			log.funLog(1, 'Invalid hostname: %s' % i, 'err')
+			continue
+		funResult(objSLA.funOpStatus(i))
 
 
 if __name__ == '__main__':
