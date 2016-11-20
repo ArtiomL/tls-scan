@@ -38,7 +38,7 @@ If run interactively, **_stdout_** is used for log messages, otherwise `/var/log
 ## --help
 ```
 ./tls_scan.py --help
-usage: tls_scan.py [-h] [-c] [-f CFILE] [-j] [-l {0,1,2,3}] [-v]
+usage: tls_scan.py [-h] [-c] [-f CFILE] [-j] [-l {0,1,2,3}] [-m] [-v]
                    [HOST [HOST ...]]
 
 Automated TLS/SSL Server Tests for Multiple Hosts
@@ -50,8 +50,9 @@ optional arguments:
   -h, --help    show this help message and exit
   -c            deliver cached assessment reports if available
   -f CFILE      config file location
-  -j            return full assessment JSON (default: grades only)
+  -j            return assessment JSONs (default: grades only), disables -m
   -l {0,1,2,3}  set log level (default: 0)
+  -m            send report by mail
   -v            show program's version number and exit
 
 https://github.com/ArtiomL/tls-scan
