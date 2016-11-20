@@ -29,7 +29,7 @@ class clsExCodes(object):
 
 objExCodes = clsExCodes()
 
-#
+# Final grades list
 lstGrades = []
 
 
