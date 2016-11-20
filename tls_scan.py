@@ -112,7 +112,7 @@ def main():
 			objMail.ehlo()
 			objMail.starttls()
 			objMail.login(diCfg['user'], diCfg['pass'].decode('base64'))
-			objMail.sendmail(diCfg['from'], diCfg['to'], strReport)
+			objMail.sendmail(diCfg['from'], diCfg['to'], 'Subject: tls-scan v%s\n\n%s' % (__version__, strReport))
 			objMail.quit()
 		except Exception as e:
 			log.funLog(2, repr(e), 'err')
