@@ -106,7 +106,7 @@ def main():
 
 	strReport = '\r\n'.join(sorted(lstGrades, reverse = True))
 
-	if objArgs.mail:
+	if objArgs.mail and not objArgs.json:
 		try:
 			objMail = smtplib.SMTP(diCfg['server'])
 			objMail.ehlo()
