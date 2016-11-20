@@ -9,6 +9,7 @@ import json
 import lib.cfg as cfg
 import lib.log as log
 import lib.reapi as reapi
+import smtplib
 import sys
 
 __author__ = 'Artiom Lichtenstein'
@@ -36,7 +37,8 @@ lstGrades = []
 def funResult(amStatus):
 	global lstGrades
 	if isinstance(amStatus, list):
-		log.funLog(1, amStatus)
+		for i in amStatus:
+			log.funLog(1, i)
 		lstGrades.extend(amStatus)
 	elif isinstance(amStatus, dict):
 		print json.dumps(amStatus, indent = 4)
@@ -101,6 +103,17 @@ def main():
 		if not objArgs.cache and not objSLA.funAnalyze(i):
 			continue
 		funResult(objSLA.funOpStatus(i))
+
+	if objArgs.mail:
+		try:
+			objMail = smtplib.SMTP(diCfg['server'])
+			objMail.ehlo()
+			objMail.starttls()
+			objMail.login(diCfg['user'], diCfg['pass'].decode('base64'))
+			objMail.sendmail(diCfg['from'], diCfg['to'], '\r\n'.join(sorted(lstGrades, reverse = True)))
+			objMail.quit()
+		except Exception as e:
+			log.funLog(2, repr(e), 'err')
 
 
 if __name__ == '__main__':
