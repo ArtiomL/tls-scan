@@ -104,16 +104,20 @@ def main():
 			continue
 		funResult(objSLA.funOpStatus(i))
 
+	strReport = '\r\n'.join(sorted(lstGrades, reverse = True))
+
 	if objArgs.mail:
 		try:
 			objMail = smtplib.SMTP(diCfg['server'])
 			objMail.ehlo()
 			objMail.starttls()
 			objMail.login(diCfg['user'], diCfg['pass'].decode('base64'))
-			objMail.sendmail(diCfg['from'], diCfg['to'], '\r\n'.join(sorted(lstGrades, reverse = True)))
+			objMail.sendmail(diCfg['from'], diCfg['to'], strReport)
 			objMail.quit()
 		except Exception as e:
 			log.funLog(2, repr(e), 'err')
+	else:
+		print strReport
 
 
 if __name__ == '__main__':
