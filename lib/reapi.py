@@ -118,6 +118,7 @@ class clsSLA(object):
 			except Exception as e:
 				log.funLog(2, repr(e), 'err')
 		if strStatus == 'READY':
+			log.funLog(1, 'Assessment complete for: %s' % strHost)
 			return diOper if self.boolJSON else self.funGrades(diOper)
 
 	@staticmethod
