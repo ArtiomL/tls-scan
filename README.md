@@ -9,7 +9,7 @@
 ## Table of Contents
 - [Description](#description)
 - [Installation](#installation)
- - [tls_scan.json](#tls_scan.json)
+ - [tls_scan.json](#tls_scanjson)
 - [Logging](#logging)
 - [Help](#--help)
 - [License](LICENSE)
