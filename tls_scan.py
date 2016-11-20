@@ -2,7 +2,7 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.0.9, 19/11/2016
+# v0.1.0, 20/11/2016
 
 import argparse
 import json
@@ -13,7 +13,7 @@ import sys
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '0.0.9'
+__version__ = '0.1.0'
 
 # Config file
 strCFile = 'tls_scan.json'
@@ -46,6 +46,7 @@ def funArgParser():
 	objArgParser.add_argument('-f', help ='config file location', dest = 'cfile')
 	objArgParser.add_argument('-j', help ='return full assessment JSON (default: grades only)', action = 'store_true', dest = 'json')
 	objArgParser.add_argument('-l', help ='set log level (default: 0)', choices = [0, 1, 2, 3], type = int, dest = 'log')
+	objArgParser.add_argument('-m', help ='mail results', action = 'store_true', dest = 'mail')
 	objArgParser.add_argument('-v', action ='version', version = '%(prog)s v' + __version__)
 	objArgParser.add_argument('HOST', help = 'list of hosts to scan (overrides config file)', nargs = '*')
 	return objArgParser.parse_args()
