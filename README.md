@@ -9,6 +9,7 @@
 ## Table of Contents
 - [Description](#description)
 - [Installation](#installation)
+ - [tls_scan.json](#tls_scan.json)
 - [Logging](#logging)
 - [Help](#--help)
 - [License](LICENSE)
@@ -23,6 +24,7 @@ Automated TLS/SSL server tests for multiple hosts using the SSL Labs [API](https
 ```shell
 git clone https://github.com/ArtiomL/tls-scan.git
 ```
+### [tls_scan.json](tls_scan.json)
 
 <br>
 ## Logging
