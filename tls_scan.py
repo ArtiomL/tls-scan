@@ -29,11 +29,15 @@ class clsExCodes(object):
 
 objExCodes = clsExCodes()
 
+#
+lstGrades = []
+
 
 def funResult(amStatus):
+	global lstGrades
 	if isinstance(amStatus, list):
-		for i in amStatus:
-			print i
+		log.funLog(1, amStatus)
+		lstGrades.extend(amStatus)
 	elif isinstance(amStatus, dict):
 		print json.dumps(amStatus, indent = 4)
 
@@ -56,8 +60,8 @@ def main():
 	global objSLA, strCFile
 	objArgs = funArgParser()
 
-	# If run interactively, stdout is used for log messages
-	if sys.stdout.isatty():
+	# If run interactively, stdout is used for log messages (unless -j is set)
+	if sys.stdout.isatty() and not objArgs.json:
 		log.strLogMethod = 'stdout'
 
 	# Set log level
