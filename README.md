@@ -34,7 +34,7 @@ Alternatively, this is controlled by the `intLogLevel` variable of the [log](/li
 # Log level to /var/log/messages (or stdout)
 intLogLevel = 0
 ```
-If run interactively, **_stdout_** is used for log messages, otherwise `/var/log/messages` will be used.
+If run interactively, **_stdout_** is used for log messages (unless `-j` is set), otherwise `/var/log/messages` will be used.
 
 <br>
 ## --help
