@@ -2,7 +2,7 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.1.0, 20/11/2016
+# v0.1.2, 22/11/2016
 
 import argparse
 import json
@@ -14,7 +14,7 @@ import sys
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '0.1.0'
+__version__ = '0.1.2'
 
 # Config file
 strCFile = 'tls_scan.json'
@@ -33,6 +33,8 @@ objExCodes = clsExCodes()
 # Final grades list
 lstGrades = []
 
+# Mail headers
+strMHead = ""
 
 def funResult(amStatus):
 	global lstGrades
@@ -112,7 +114,8 @@ def main():
 			objMail.ehlo()
 			objMail.starttls()
 			objMail.login(diCfg['user'], diCfg['pass'].decode('base64'))
-			objMail.sendmail(diCfg['from'], diCfg['to'], 'Subject: tls-scan v%s\n\n%s' % (__version__, strReport))
+			strMHead = 'From: TLS Scan <%s>\nSubject: v%s Report\n\nTotal Hosts: %s\n' % (diCfg['from'], __version__, str(len(lstHosts)))
+			objMail.sendmail(diCfg['from'], diCfg['to'], strMHead + strReport)
 			objMail.quit()
 		except Exception as e:
 			log.funLog(2, repr(e), 'err')
