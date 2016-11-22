@@ -2,7 +2,7 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.1.2, 22/11/2016
+# v0.1.3, 23/11/2016
 
 import argparse
 import json
@@ -14,7 +14,7 @@ import sys
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 
 # Config file
 strCFile = 'tls_scan.json'
@@ -61,7 +61,7 @@ def funArgParser():
 
 
 def main():
-	global objSLA, strCFile
+	global objSLA, strCFile, lstGrades, strMHead
 	objArgs = funArgParser()
 
 	# If run interactively, stdout is used for log messages (unless -j is set)
