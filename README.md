@@ -9,6 +9,8 @@
 ## Table of Contents
 - [Description](#description)
 - [Installation](#installation)
+ - [Dependencies](#dependencies)
+ - [Git](#git)
  - [tls_scan.json](#tls_scanjson)
 - [Logging](#logging)
 - [Help](#--help)
