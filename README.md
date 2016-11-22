@@ -30,6 +30,10 @@ pip install requests
 git clone https://github.com/ArtiomL/tls-scan.git
 ```
 ### [tls_scan.json](tls_scan.json)
+To be able to send the report by mail (`-m`) [tls_scan.py](tls_scan.py) must be provided with SMTP credentials ([tls_scan.json](tls_scan.json)). The same config file is used to specify a list of hosts to scan:
+```json
+{ }
+```
 
 <br>
 ## Logging
