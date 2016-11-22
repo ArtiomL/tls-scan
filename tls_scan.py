@@ -114,7 +114,7 @@ def main():
 			objMail.ehlo()
 			objMail.starttls()
 			objMail.login(diCfg['user'], diCfg['pass'].decode('base64'))
-			strMHead = 'From: TLS Scan <%s>\nSubject: v%s Report\n\nTotal Hosts: %s\n' % (diCfg['from'], __version__, str(len(lstHosts)))
+			strMHead = 'From: tls-scan v%s<%s>\nSubject: TLS/SSL Scan Report\n\nTotal Hosts Submitted: %s\n' % (__version__, diCfg['from'], str(len(lstHosts)))
 			objMail.sendmail(diCfg['from'], diCfg['to'], strMHead + strReport)
 			objMail.quit()
 		except Exception as e:
