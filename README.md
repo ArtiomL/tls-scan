@@ -21,6 +21,11 @@ Automated TLS/SSL server tests for multiple hosts using the SSL Labs [API](https
 
 <br>
 ## Installation
+>Dependencies
+```shell
+pip install requests
+```
+>Git
 ```shell
 git clone https://github.com/ArtiomL/tls-scan.git
 ```
