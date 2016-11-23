@@ -58,8 +58,12 @@ Schema:
 | to         | to-address string ([RFC 822](https://tools.ietf.org/html/rfc822.html)) |
 | hosts      | list of hosts to scan |
 
-
-
+This file should be placed at the following location  
+Alternatively, this path is controlled by the `-f` command line argument or the `strCFile` global variable (in [tls_scan.py](tls_scan.py)):
+```python
+# Config file
+strCFile = 'tls_scan.json'
+```
 
 <br>
 ## Logging
