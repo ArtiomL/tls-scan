@@ -100,6 +100,8 @@ def main():
 	if objArgs.HOST:
 		lstHosts = objArgs.HOST
 
+	log.funLog(1, 'Scanning %s host(s)... [Cache: %s]' % (str(len(lstHosts)), bool(objArgs.cache)))
+
 	# Check SSL Labs availability
 	if not objSLA.funInfo():
 		log.funLog(1, 'SSL Labs unavailable or maximum concurrent assessments exceeded.', 'err')
