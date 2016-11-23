@@ -38,6 +38,7 @@ lstGrades = []
 strMHead = 'From: tls-scan v%s' % __version__
 
 def funResult(amStatus):
+	# Add grades to list or print assessment JSON
 	global lstGrades
 	if isinstance(amStatus, list):
 		for i in amStatus:
@@ -94,21 +95,26 @@ def main():
 	if objArgs.HOST:
 		lstHosts = objArgs.HOST
 
+	# Check SSL Labs availability
 	if not objSLA.funInfo():
 		log.funLog(1, 'SSL Labs unavailable or maximum concurrent assessments exceeded.', 'err')
 		sys.exit(objExCodes.nosrv)
 
 
+	# Initiate the scan
 	for i in lstHosts:
 		if not objSLA.funValid(i):
 			log.funLog(1, 'Invalid hostname: %s' % i, 'err')
 			continue
 		if not objArgs.cache and not objSLA.funAnalyze(i):
+			# If cached reports aren't allowed (default) - but a new assessment has failed to start
 			continue
 		funResult(objSLA.funOpStatus(i))
 
+	# Sort the grades in reverse and add line breaks
 	strReport = '\r\n'.join(sorted(lstGrades, reverse = True))
 
+	# Mail the report
 	if objArgs.mail and not objArgs.json:
 		try:
 			objMail = smtplib.SMTP(diCfg['server'])
