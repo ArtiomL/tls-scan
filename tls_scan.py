@@ -9,6 +9,7 @@ import json
 import lib.cfg as cfg
 import lib.log as log
 import lib.reapi as reapi
+import os
 import re
 import smtplib
 import sys
@@ -19,6 +20,9 @@ __version__ = '0.1.3'
 
 # Config file
 strCFile = 'tls_scan.json'
+
+# Log prefix
+log.strLogID = '[-v%s-161123-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
 
 # SSL Labs REST API
 objSLA = reapi.clsSLA()
