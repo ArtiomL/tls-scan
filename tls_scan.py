@@ -35,7 +35,7 @@ objExCodes = clsExCodes()
 lstGrades = []
 
 # Mail headers
-strMHead = ""
+strMHead = 'From: tls-scan v%s' % __version__
 
 def funResult(amStatus):
 	global lstGrades
@@ -116,7 +116,7 @@ def main():
 			objMail.starttls()
 			objMail.login(diCfg['user'], diCfg['pass'].decode('base64'))
 			lstTo = re.split(r',|;', diCfg['to'].replace(' ', ''))
-			strMHead = 'From: tls-scan v%s<%s>\nSubject: TLS/SSL Scan Report\n\nTotal Hosts Submitted: %s\n' % (__version__, diCfg['from'], str(len(lstHosts)))
+			strMHead += '<%s>\nTo: %s\nSubject: TLS/SSL Scan Report\n\nTotal Hosts Submitted: %s\n' % (diCfg['from'], ','.join(lstTo), str(len(lstHosts)))
 			objMail.sendmail(diCfg['from'], lstTo, strMHead + strReport)
 			objMail.quit()
 		except Exception as e:
