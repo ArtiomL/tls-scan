@@ -24,7 +24,7 @@ Automated TLS/SSL server tests for multiple hosts using the [SSL Labs](https://w
 
 The code in this repository allows you to scan a list of public TLS/SSL web servers for certificate issues, protocol and cipher suite support, crypto vulnerabilities [etc](https://www.ssllabs.com/downloads/SSL_Server_Rating_Guide.pdf).
 
-The grade report can then be sent by mail (SMTP) or written to **_stdout_**.
+The grade report can then be sent by mail (`-m`) or written to _stdout_.
 
 <br>
 ## Installation
