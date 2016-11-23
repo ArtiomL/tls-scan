@@ -138,7 +138,8 @@ def main():
 
 def funBadExit(type, value, traceback):
 	log.funLog(1, 'Unhandled Exception: %s, %s, %s' % (type, value, traceback))
-	
+
+sys.excepthook = funBadExit
 
 
 @atexit.register
