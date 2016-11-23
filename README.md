@@ -26,6 +26,8 @@ The code in this repository allows you to scan a list of public TLS/SSL web serv
 
 The grade report can then be sent by mail (`-m`) or written to **_stdout_**.
 
+Printing full assessment JSONs is also supported (`-j`).
+
 <br>
 ## Installation
 ### Dependencies
