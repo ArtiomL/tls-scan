@@ -40,7 +40,7 @@ To be able to send the report by mail (`-m`) [tls_scan.py](tls_scan.py) must be 
 		"user": "marla@gmail.com",
 		"pass": "d293TXVjaEZha2Ux",
 		"from": "marla@gmail.com",
-		"to": "tyler@gmail.com",
+		"to": "tyler@gmail.com; chloe@gmail.com",
 		"hosts": [
 				"example.com",
 				"example.net",
@@ -56,7 +56,7 @@ Schema:
 | user       | username |
 | pass       | password (base64-encoded) |
 | from       | from-address string ([RFC 822](https://tools.ietf.org/html/rfc822.html)) |
-| to         | to-address string ([RFC 822](https://tools.ietf.org/html/rfc822.html)) |
+| to         | to-address string ([RFC 822](https://tools.ietf.org/html/rfc822.html)) (separate with `;`) |
 | hosts      | list of hosts to scan |
 
 <br>
