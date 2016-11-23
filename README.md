@@ -56,7 +56,7 @@ Schema:
 | user       | username |
 | pass       | password (base64-encoded) |
 | from       | from-address string ([RFC 822](https://tools.ietf.org/html/rfc822.html)) |
-| to         | to-address(es) (separate with `;`) |
+| to         | to-address(es) (delimit with `;`) |
 | hosts      | list of hosts to scan |
 
 <br>
