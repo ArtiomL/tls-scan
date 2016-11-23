@@ -20,7 +20,7 @@
 <br>
 ## Description
 
-Automated TLS/SSL server tests for multiple hosts using the SSL Labs [API](https://github.com/ssllabs/ssllabs-scan/blob/stable/ssllabs-api-docs.md).
+Automated TLS/SSL server tests for multiple hosts using the [SSL Labs](https://www.ssllabs.com/ssltest/) [API](https://github.com/ssllabs/ssllabs-scan/blob/stable/ssllabs-api-docs.md).
 
 <br>
 ## Installation
