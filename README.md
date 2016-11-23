@@ -12,6 +12,7 @@
  - [Dependencies](#dependencies)
  - [Git](#git)
  - [tls_scan.json](#tls_scanjson)
+ - [tls_scan.py](#tls_scanpy)
 - [Logging](#logging)
 - [Help](#--help)
 - [License](LICENSE)
@@ -64,6 +65,8 @@ The config file path is controlled by the `-f` command line argument or the `str
 # Config file
 strCFile = 'tls_scan.json'
 ```
+### [tls_scan.py](tls_scan.py)
+This is the actual scan / report logic.
 
 <br>
 ## Logging
