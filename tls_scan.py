@@ -2,9 +2,10 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.1.3, 23/11/2016
+# v0.1.4, 24/11/2016
 
 import argparse
+import atexit
 import json
 import lib.cfg as cfg
 import lib.log as log
@@ -16,13 +17,13 @@ import sys
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '0.1.3'
+__version__ = '0.1.4'
 
 # Config file
 strCFile = 'tls_scan.json'
 
 # Log prefix
-log.strLogID = '[-v%s-161123-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
+log.strLogID = '[-v%s-161124-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
 
 # SSL Labs REST API
 objSLA = reapi.clsSLA()
@@ -133,6 +134,16 @@ def main():
 			log.funLog(2, repr(e), 'err')
 	else:
 		print strReport
+
+
+def funBadExit(type, value, traceback):
+	log.funLog(1, 'Unhandled Exception: %s, %s, %s' % (type, value, traceback))
+	
+
+
+@atexit.register
+def funExit():
+	log.funLog(1, 'Exiting...')
 
 
 if __name__ == '__main__':
