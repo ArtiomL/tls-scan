@@ -48,6 +48,7 @@ To be able to send the report by mail (`-m`) [tls_scan.py](tls_scan.py) must be 
 }
 ```
 Schema:
+
 | Attribute  | Value           |
 | :--------- |:--------------- |
 | server     | SMTP server host:port |
