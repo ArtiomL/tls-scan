@@ -47,6 +47,18 @@ To be able to send the report by mail (`-m`) [tls_scan.py](tls_scan.py) must be 
 		]
 }
 ```
+Schema:
+| Attribute  | Value           |
+| :--------- |:--------------- |
+| server     | SMTP server host:port |
+| user       | username |
+| pass       | password (base64-encoded) |
+| from       | from-address string ([RFC 822](https://tools.ietf.org/html/rfc822.html)) |
+| to         | to-address string ([RFC 822](https://tools.ietf.org/html/rfc822.html)) |
+| hosts      | list of hosts to scan |
+
+
+
 
 <br>
 ## Logging
