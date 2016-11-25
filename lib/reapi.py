@@ -86,7 +86,7 @@ class clsSLA(object):
 			lstGrades.append('[%s] %s, %s, %s' % (strGrade, diOper['host'], diEP['ipAddress'], strStaMess))
 		return lstGrades
 
-	def funOpStatus(self, strHost):
+	def funOpStatus(self, strHost, boolAsync = False):
 		# Check operation status
 		strStatus = 'DNS'
 		strURL = self.strAPIE + self.strAnalyze + strHost
@@ -101,24 +101,25 @@ class clsSLA(object):
 
 			except Exception as e:
 				log.funLog(2, repr(e), 'err')
-		# Log container for per-endpoint messages
-		lstMessages = [None] * len(diOper['endpoints'])
-		log.funLog(2, 'Total number of endpoints: %s' % len(lstMessages))
-		while strStatus == 'IN_PROGRESS':
-			try:
-				if log.intLogLevel >= 3:
-					for i, diEP in enumerate(diOper['endpoints']):
-						if diEP['statusMessage'] == 'In progress':
-							strDetMess = diEP['statusDetailsMessage']
-							if strDetMess != lstMessages[i]:
-								lstMessages[i] = strDetMess
-								log.funLog(3, '%s, IP: %s, %s' % (strHost, diEP['ipAddress'], lstMessages[i]))
-				else:
-					time.sleep(self.intPoll)
-				diOper = json.loads(self.objHS.get(strURL).content)
-				strStatus = diOper['status']
-			except Exception as e:
-				log.funLog(2, repr(e), 'err')
+		if not boolAsync:
+			# Log container for per-endpoint messages
+			lstMessages = [None] * len(diOper['endpoints'])
+			log.funLog(2, 'Total number of endpoints: %s' % len(lstMessages))
+			while strStatus == 'IN_PROGRESS':
+				try:
+					if log.intLogLevel >= 3:
+						for i, diEP in enumerate(diOper['endpoints']):
+							if diEP['statusMessage'] == 'In progress':
+								strDetMess = diEP['statusDetailsMessage']
+								if strDetMess != lstMessages[i]:
+									lstMessages[i] = strDetMess
+									log.funLog(3, '%s, IP: %s, %s' % (strHost, diEP['ipAddress'], lstMessages[i]))
+					else:
+						time.sleep(self.intPoll)
+					diOper = json.loads(self.objHS.get(strURL).content)
+					strStatus = diOper['status']
+				except Exception as e:
+					log.funLog(2, repr(e), 'err')
 		if strStatus == 'READY':
 			log.funLog(1, 'Assessment complete for: %s' % strHost)
 			return diOper if self.boolJSON else self.funGrades(diOper)
