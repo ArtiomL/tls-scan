@@ -88,6 +88,8 @@ class clsSLA(object):
 
 	def funOpStatus(self, strHost, boolAsync = False):
 		# Check operation status
+		# boolAsync = True: non-blocking, gets current status and exits (returns results only on 'ERROR' or 'READY')
+		# boolAsync = False: blocking, loops while 'IN_PROGRESS', exits (with results) only on 'ERROR' or 'READY'
 		strStatus = 'DNS'
 		strURL = self.strAPIE + self.strAnalyze + strHost
 		while strStatus == 'DNS':
