@@ -2,7 +2,7 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.1.4, 24/11/2016
+# v0.1.5, 25/11/2016
 
 import argparse
 import atexit
@@ -17,13 +17,13 @@ import sys
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '0.1.4'
+__version__ = '0.1.5'
 
 # Config file
 strCFile = 'tls_scan.json'
 
 # Log prefix
-log.strLogID = '[-v%s-161124-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
+log.strLogID = '[-v%s-161125-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
 
 # SSL Labs REST API
 objSLA = reapi.clsSLA()
@@ -119,7 +119,7 @@ def main():
 		funResult(objSLA.funOpStatus(i))
 
 	# Sort the grades in reverse and add line breaks
-	strReport = '\r\n'.join(sorted(lstGrades, reverse = True))
+	strReport = '\n'.join(sorted(lstGrades, reverse = True))
 
 	# Mail the report
 	if objArgs.mail and not objArgs.json:
