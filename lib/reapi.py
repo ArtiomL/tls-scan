@@ -2,7 +2,7 @@
 # tls-scan - lib: REST API
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v0.0.7, 20/11/2016
+# v1.0.0, 25/11/2016
 
 import json
 import log
@@ -12,7 +12,7 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '0.0.7'
+__version__ = '1.0.0'
 
 # SSL Labs REST API
 class clsSLA(object):
@@ -29,6 +29,8 @@ class clsSLA(object):
 		self.objHS = requests.session()
 		# Add Content-Type to HTTP headers and modify User-Agent
 		self.objHS.headers.update({ 'Content-Type': 'application/json', 'User-Agent': 'tls-scan v%s' % __version__ })
+		# Concurrency = number of simultaneous assessments
+		self.intConc = 1
 		# Cool-off period after each new assessment (in sec.)
 		self.intCool = 1
 		# Polling interval (in sec.)
