@@ -142,6 +142,11 @@ def main():
 	if objArgs.HOST:
 		lstHosts = objArgs.HOST
 
+	# Hosts list cleanup (remove invalid domains)
+	lstHClean = [strHost for strHost in lstHosts if objSLA.funValid(strHost)]
+	log.funLog(1, 'Ignoring invalid hostname(s): %s' % ', '.join(list(set(lstHosts) - set(lstHClean))), 'err')
+	lstHosts = lstHClean
+
 	log.funLog(1, 'Scanning %s host(s)... [Cache: %s]' % (str(len(lstHosts)), bool(objArgs.cache)))
 
 	# Check SSL Labs availability
