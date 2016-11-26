@@ -73,10 +73,12 @@ def funConScan(lstHosts, boolCache):
 		if not boolCache:
 			for strHost in lstGroup:
 				objSLA.funAnalyze(strHost)
+				time.sleep(objSLA.intCool)
 		# Check status
 		intReady = 0
-		while intReady < objSLA.intConc:
+		while intReady < len(lstGroup):
 			intReady = 0
+			time.sleep(objSLA.intPoll)
 			for i, strHost in enumerate(lstGroup):
 				if strHost.endswith(';done'):
 					intReady += 1
@@ -84,9 +86,8 @@ def funConScan(lstHosts, boolCache):
 				amStatus = objSLA.funOpStatus(strHost, True)
 				if amStatus:
 					lstGroup[i] += ';done'
+					intReady += 1
 					funResult(amStatus)
-			time.sleep(objSLA.intPoll)
-
 
 
 def funArgParser():
@@ -143,7 +144,8 @@ def main():
 
 	# Hosts list cleanup (remove invalid domains)
 	lstHClean = [strHost for strHost in lstHosts if objSLA.funValid(strHost)]
-	log.funLog(1, 'Ignoring invalid hostname(s): %s' % ', '.join(list(set(lstHosts) - set(lstHClean))), 'err')
+	if len(lstHosts) > len(lstHClean):
+		log.funLog(1, 'Ignoring invalid hostname(s): %s' % ', '.join(list(set(lstHosts) - set(lstHClean))), 'err')
 	lstHosts = lstHClean
 
 	log.funLog(1, 'Scanning %s host(s)... [Cache: %s]' % (str(len(lstHosts)), bool(objArgs.cache)))
