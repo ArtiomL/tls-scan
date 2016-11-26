@@ -77,15 +77,18 @@ def funConScan(lstHosts, boolCache):
 		# Check status
 		intReady = 0
 		while intReady < len(lstGroup):
+			# Completed assessments counter
 			intReady = 0
 			time.sleep(objSLA.intPoll)
 			for i, strHost in enumerate(lstGroup):
-				if strHost.endswith(';done'):
+				if strHost.endswith('#'):
 					intReady += 1
 					continue
+				# Non-blocking operation status
 				amStatus = objSLA.funOpStatus(strHost, True)
 				if amStatus:
-					lstGroup[i] += ';done'
+					# Mark host as completed
+					lstGroup[i] += '#'
 					intReady += 1
 					funResult(amStatus)
 
