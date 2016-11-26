@@ -112,15 +112,18 @@ def main():
 		sys.exit(objExCodes.nosrv)
 
 
-	# Initiate the scan
-	for i in lstHosts:
-		if not objSLA.funValid(i):
-			log.funLog(1, 'Invalid hostname: %s' % i, 'err')
-			continue
-		if not objArgs.cache and not objSLA.funAnalyze(i):
-			# If cached reports aren't allowed (default) - but a new assessment has failed to start
-			continue
-		funResult(objSLA.funOpStatus(i))
+	if objSLA.intConc > 1:
+		funConScan(lstHosts)
+	else:
+		# Initiate the scan
+		for i in lstHosts:
+			if not objSLA.funValid(i):
+				log.funLog(1, 'Invalid hostname: %s' % i, 'err')
+				continue
+			if not objArgs.cache and not objSLA.funAnalyze(i):
+				# If cached reports aren't allowed (default) - but a new assessment has failed to start
+				continue
+			funResult(objSLA.funOpStatus(i))
 
 	# Sort the grades in reverse and add line breaks
 	strReport = '\n'.join(sorted(lstGrades, reverse = True))
