@@ -112,6 +112,7 @@ def main():
 		sys.exit(objExCodes.nosrv)
 
 
+	# Initiate the scan
 	for i in lstHosts:
 		if not objSLA.funValid(i):
 			log.funLog(1, 'Invalid hostname: %s' % i, 'err')
