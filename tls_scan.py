@@ -53,8 +53,41 @@ def funResult(amStatus):
 		print json.dumps(amStatus, indent = 4)
 
 
+def funScan(lstHosts):
+	# Initiate the scan
+	for strHost in lstHosts:
+		if not objSLA.funValid(strHost):
+			log.funLog(1, 'Invalid hostname: %s' % strHost, 'err')
+			continue
+		if not objArgs.cache and not objSLA.funAnalyze(strHost):
+			# If cached reports aren't allowed (default) - but a new assessment has failed to start
+			continue
+		funResult(objSLA.funOpStatus(strHost))
+
+
 def funConScan(lstHosts):
-	pass
+	# Concurrent scan
+	# Split the hosts list into groups of the concurrency size
+	lstMatrix = [lstHosts[i:i + objSLA.intConc] for i in range(0, len(lstHosts), objSLA.intConc)]
+	# Initiate the scan
+	for lstGroup in lstMatrix:
+		# New assessment
+		if not objArgs.cache:
+			for strHost in lstGroup:
+				objSLA.funAnalyze(strHost) if objSLA.funValid(strHost) else log.funLog(1, 'Invalid hostname: %s' % strHost, 'err')
+		# Check status
+		intReady = 0
+		while intReady < objSLA.intConc:
+			for i, strHost in enumerate(lstGroup):
+				if strHost.endswith 'done'
+					intReady += 1
+					continue
+				amStatus = objSLA.funOpStatus(strHost, True)
+				if amStatus:
+					lstGroup[i] += ' '
+					funResult(amStatus)
+			time.sleep(objSLA.intPoll)
+
 
 
 def funArgParser():
@@ -117,19 +150,12 @@ def main():
 		sys.exit(objExCodes.nosrv)
 
 
+	# Scan
 	if objSLA.intConc > 1:
 		# Concurrency
 		funConScan(lstHosts)
 	else:
-		# Initiate the scan
-		for i in lstHosts:
-			if not objSLA.funValid(i):
-				log.funLog(1, 'Invalid hostname: %s' % i, 'err')
-				continue
-			if not objArgs.cache and not objSLA.funAnalyze(i):
-				# If cached reports aren't allowed (default) - but a new assessment has failed to start
-				continue
-			funResult(objSLA.funOpStatus(i))
+		funScan(lstHosts)
 
 	# Sort the grades in reverse and add line breaks
 	strReport = '\n'.join(sorted(lstGrades, reverse = True))
