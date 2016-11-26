@@ -66,6 +66,7 @@ def funArgParser():
 	objArgParser.add_argument('-j', help ='return assessment JSONs (default: grades only), disables -m', action = 'store_true', dest = 'json')
 	objArgParser.add_argument('-l', help ='set log level (default: 0)', choices = [0, 1, 2, 3], type = int, dest = 'log')
 	objArgParser.add_argument('-m', help ='send report by mail', action = 'store_true', dest = 'mail')
+	objArgParser.add_argument('-s', help ='number of simultaneous assessments (default: 1)', choices = [1, 2, 3, 4, 5], type = int, dest = 'conc')
 	objArgParser.add_argument('-v', action ='version', version = '%(prog)s v' + __version__)
 	objArgParser.add_argument('HOST', help = 'list of hosts to scan (overrides config file)', nargs = '*')
 	return objArgParser.parse_args()
@@ -90,6 +91,10 @@ def main():
 	if objArgs.cfile:
 		strCFile = objArgs.cfile
 
+	# Concurrency
+	if objArgs.conc:
+		objSLA.intConc = objArgs.conc
+
 	# Read config file
 	diCfg = cfg.funReadCfg(strCFile)
 	try:
@@ -113,6 +118,7 @@ def main():
 
 
 	if objSLA.intConc > 1:
+		# Concurrency
 		funConScan(lstHosts)
 	else:
 		# Initiate the scan
