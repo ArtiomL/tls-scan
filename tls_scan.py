@@ -53,6 +53,10 @@ def funResult(amStatus):
 		print json.dumps(amStatus, indent = 4)
 
 
+def funConScan(lstHosts):
+	pass
+
+
 def funArgParser():
 	objArgParser = argparse.ArgumentParser(
 		description = 'Automated TLS/SSL Server Tests for Multiple Hosts',
@@ -107,14 +111,7 @@ def main():
 		log.funLog(1, 'SSL Labs unavailable or maximum concurrent assessments exceeded.', 'err')
 		sys.exit(objExCodes.nosrv)
 
-	# Check concurrency
-	if objSLA.intConc > 1:
-		# Split the hosts list into groups 
-		lstHolder = [lstHosts[i:i + objSLA.intConc] for i in range(0, len(lstHosts), objSLA.intConc)]
-		lstHosts = lstHolder
 
-
-	# Initiate the scan
 	for i in lstHosts:
 		if not objSLA.funValid(i):
 			log.funLog(1, 'Invalid hostname: %s' % i, 'err')
