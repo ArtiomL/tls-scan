@@ -14,6 +14,7 @@ import os
 import re
 import smtplib
 import sys
+import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
@@ -53,38 +54,36 @@ def funResult(amStatus):
 		print json.dumps(amStatus, indent = 4)
 
 
-def funScan(lstHosts):
+def funScan(lstHosts, boolCache):
 	# Initiate the scan
 	for strHost in lstHosts:
-		if not objSLA.funValid(strHost):
-			log.funLog(1, 'Invalid hostname: %s' % strHost, 'err')
-			continue
-		if not objArgs.cache and not objSLA.funAnalyze(strHost):
+		if not boolCache and not objSLA.funAnalyze(strHost):
 			# If cached reports aren't allowed (default) - but a new assessment has failed to start
 			continue
 		funResult(objSLA.funOpStatus(strHost))
 
 
-def funConScan(lstHosts):
+def funConScan(lstHosts, boolCache):
 	# Concurrent scan
 	# Split the hosts list into groups of the concurrency size
 	lstMatrix = [lstHosts[i:i + objSLA.intConc] for i in range(0, len(lstHosts), objSLA.intConc)]
 	# Initiate the scan
 	for lstGroup in lstMatrix:
 		# New assessment
-		if not objArgs.cache:
+		if not boolCache:
 			for strHost in lstGroup:
-				objSLA.funAnalyze(strHost) if objSLA.funValid(strHost) else log.funLog(1, 'Invalid hostname: %s' % strHost, 'err')
+				objSLA.funAnalyze(strHost)
 		# Check status
 		intReady = 0
 		while intReady < objSLA.intConc:
+			intReady = 0
 			for i, strHost in enumerate(lstGroup):
-				if strHost.endswith 'done'
+				if strHost.endswith(';done'):
 					intReady += 1
 					continue
 				amStatus = objSLA.funOpStatus(strHost, True)
 				if amStatus:
-					lstGroup[i] += ' '
+					lstGroup[i] += ';done'
 					funResult(amStatus)
 			time.sleep(objSLA.intPoll)
 
@@ -158,9 +157,9 @@ def main():
 	# Scan
 	if objSLA.intConc > 1:
 		# Concurrency
-		funConScan(lstHosts)
+		funConScan(lstHosts, objArgs.cache)
 	else:
-		funScan(lstHosts)
+		funScan(lstHosts, objArgs.cache)
 
 	# Sort the grades in reverse and add line breaks
 	strReport = '\n'.join(sorted(lstGrades, reverse = True))
