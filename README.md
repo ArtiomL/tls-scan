@@ -89,23 +89,23 @@ If run interactively, **_stdout_** is used for log messages (unless `-j` is set)
 ```
 ./tls_scan.py --help
 usage: tls_scan.py [-h] [-c] [-f CFILE] [-j] [-l {0,1,2,3}] [-m]
-                   [-s {1,2,3,4,5}] [-v]
+                   [-s {2,3,4,5}] [-v]
                    [HOST [HOST ...]]
 
 Automated TLS/SSL Server Tests for Multiple Hosts
 
 positional arguments:
-  HOST            list of hosts to scan (overrides config file)
+  HOST          list of hosts to scan (overrides config file)
 
 optional arguments:
-  -h, --help      show this help message and exit
-  -c              deliver cached assessment reports if available
-  -f CFILE        config file location
-  -j              return assessment JSONs (default: grades only), disables -m
-  -l {0,1,2,3}    set log level (default: 0)
-  -m              send report by mail
-  -s {1,2,3,4,5}  number of simultaneous assessments (default: 1)
-  -v              show program's version number and exit
+  -h, --help    show this help message and exit
+  -c            deliver cached assessment reports if available
+  -f CFILE      config file location
+  -j            return assessment JSONs (default: grades only), disables -m
+  -l {0,1,2,3}  set log level (default: 0)
+  -m            send report by mail
+  -s {2,3,4,5}  number of simultaneous assessments (default: 1)
+  -v            show program's version number and exit
 
 https://github.com/ArtiomL/tls-scan
 ```
