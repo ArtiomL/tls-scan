@@ -19,7 +19,7 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '1.0.1'
+__version__ = '1.0.2'
 
 # Config file
 strCFile = 'tls_scan.json'
@@ -29,6 +29,10 @@ log.strLogID = '[-v%s-161127-] %s - ' % (__version__, os.path.basename(sys.argv[
 
 # SSL Labs REST API
 objSLA = reapi.clsSLA()
+
+# Mail headers
+strMFrom = 'tls-scan v%s' % __version__
+strMSubj = 'TLS/SSL Scan Report'
 
 # Exit codes
 class clsExCodes(object):
@@ -40,9 +44,6 @@ objExCodes = clsExCodes()
 
 # Final grades list
 lstGrades = []
-
-# Mail From:
-strMFrom = 'tls-scan v%s' % __version__
 
 def funResult(amStatus):
 	# Add grades to list or print assessment JSON
@@ -170,21 +171,20 @@ def main():
 	# Sort the grades in reverse and add line breaks
 	strReport = '\r\n'.join(sorted(lstGrades, reverse = True))
 
-	# Format 
-	objMIME = email.MIMEText(strReport)
+	# Format MIME message
+	objMIME = email.MIMEText('Total Hosts Submitted: %s\r\n%s' % (str(len(lstHosts)), strReport))
 
 	# Mail the report
 	if objArgs.mail and not objArgs.json:
 		try:
-			objMIME['From'] = diCfg['from']
-			objMIME['To'] = diCfg['to']
-			objMIME['Subject'] = 'TLS/SSL Scan Report'
+			objMIME['From'] = '%s <%s>' % (strMFrom, diCfg['from'])
+			lstTo = re.split(r',|;', diCfg['to'].replace(' ', ''))
+			objMIME['To'] = ', '.join(lstTo)
+			objMIME['Subject'] = strMSubj
 			objMail = smtplib.SMTP(diCfg['server'])
 			objMail.ehlo()
 			objMail.starttls()
 			objMail.login(diCfg['user'], diCfg['pass'].decode('base64'))
-			lstTo = re.split(r',|;', diCfg['to'].replace(' ', ''))
-			#strMHead += '<%s>\nTo: %s\nSubject: TLS/SSL Scan Report\n\nTotal Hosts Submitted: %s\n' % (diCfg['from'], ','.join(lstTo), str(len(lstHosts)))
 			objMail.sendmail(diCfg['from'], lstTo, objMIME.as_string())
 			objMail.quit()
 		except Exception as e:
