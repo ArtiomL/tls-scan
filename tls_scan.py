@@ -178,14 +178,21 @@ def main():
 	if objArgs.mail and not objArgs.json:
 		try:
 			objMIME['From'] = '%s <%s>' % (strMFrom, diCfg['from'])
+			# Remove spaces and split recipients into a list delimited by , or ;
 			lstTo = re.split(r',|;', diCfg['to'].replace(' ', ''))
 			objMIME['To'] = ', '.join(lstTo)
 			objMIME['Subject'] = strMSubj
+			# Connect to SMTP server
 			objMail = smtplib.SMTP(diCfg['server'])
+			# Identification
 			objMail.ehlo()
+			# Encryption
 			objMail.starttls()
+			# Authentication
 			objMail.login(diCfg['user'], diCfg['pass'].decode('base64'))
+			# Send mail
 			objMail.sendmail(diCfg['from'], lstTo, objMIME.as_string())
+			# Terminate the SMTP session and close the connection
 			objMail.quit()
 		except Exception as e:
 			log.funLog(2, repr(e), 'err')
