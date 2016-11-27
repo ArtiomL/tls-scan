@@ -2,7 +2,7 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.0, 27/11/2016
+# v1.0.1, 27/11/2016
 
 import argparse
 import atexit
@@ -18,7 +18,7 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 # Config file
 strCFile = 'tls_scan.json'
