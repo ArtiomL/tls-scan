@@ -2,10 +2,11 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.1, 27/11/2016
+# v1.0.2, 27/11/2016
 
 import argparse
 import atexit
+import email.mime.text as email
 import json
 import lib.cfg as cfg
 import lib.log as log
@@ -40,8 +41,8 @@ objExCodes = clsExCodes()
 # Final grades list
 lstGrades = []
 
-# Mail headers
-strMHead = 'From: tls-scan v%s' % __version__
+# Mail From:
+strMFrom = 'tls-scan v%s' % __version__
 
 def funResult(amStatus):
 	# Add grades to list or print assessment JSON
@@ -167,18 +168,24 @@ def main():
 		funScan(lstHosts, objArgs.cache)
 
 	# Sort the grades in reverse and add line breaks
-	strReport = '\n'.join(sorted(lstGrades, reverse = True))
+	strReport = '\r\n'.join(sorted(lstGrades, reverse = True))
+
+	# Format 
+	objMIME = email.MIMEText(strReport)
 
 	# Mail the report
 	if objArgs.mail and not objArgs.json:
 		try:
+			objMIME['From'] = diCfg['from']
+			objMIME['To'] = diCfg['to']
+			objMIME['Subject'] = 'TLS/SSL Scan Report'
 			objMail = smtplib.SMTP(diCfg['server'])
 			objMail.ehlo()
 			objMail.starttls()
 			objMail.login(diCfg['user'], diCfg['pass'].decode('base64'))
 			lstTo = re.split(r',|;', diCfg['to'].replace(' ', ''))
-			strMHead += '<%s>\nTo: %s\nSubject: TLS/SSL Scan Report\n\nTotal Hosts Submitted: %s\n' % (diCfg['from'], ','.join(lstTo), str(len(lstHosts)))
-			objMail.sendmail(diCfg['from'], lstTo, strMHead + strReport)
+			#strMHead += '<%s>\nTo: %s\nSubject: TLS/SSL Scan Report\n\nTotal Hosts Submitted: %s\n' % (diCfg['from'], ','.join(lstTo), str(len(lstHosts)))
+			objMail.sendmail(diCfg['from'], lstTo, objMIME.as_string())
 			objMail.quit()
 		except Exception as e:
 			log.funLog(2, repr(e), 'err')
