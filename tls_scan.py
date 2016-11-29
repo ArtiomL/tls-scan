@@ -2,7 +2,7 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.2, 27/11/2016
+# v1.0.3, 29/11/2016
 
 import argparse
 import atexit
@@ -19,13 +19,13 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '1.0.2'
+__version__ = '1.0.3'
 
 # Config file
 strCFile = 'tls_scan.json'
 
 # Log prefix
-log.strLogID = '[-v%s-161127-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
+log.strLogID = '[-v%s-161129-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
 
 # SSL Labs REST API
 objSLA = reapi.clsSLA()
@@ -153,7 +153,7 @@ def main():
 		log.funLog(1, 'Ignoring invalid hostname(s): %s' % ', '.join(list(set(lstHosts) - set(lstHClean))), 'err')
 	lstHosts = lstHClean
 
-	log.funLog(1, 'Scanning %s host(s)... [Cache: %s]' % (str(len(lstHosts)), bool(objArgs.cache)))
+	log.funLog(1, 'Scanning %s host(s)... [Cache: %s, Concurrency: %s]' % (str(len(lstHosts)), bool(objArgs.cache), str(objSLA.intConc)))
 
 	# Check SSL Labs availability
 	if not objSLA.funInfo():
