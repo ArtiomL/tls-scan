@@ -2,7 +2,7 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.3, 29/11/2016
+# v1.0.3, 30/11/2016
 
 import argparse
 import atexit
@@ -25,7 +25,7 @@ __version__ = '1.0.3'
 strCFile = 'tls_scan.json'
 
 # Log prefix
-log.strLogID = '[-v%s-161129-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
+log.strLogID = '[-v%s-161130-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
 
 # SSL Labs REST API
 objSLA = reapi.clsSLA()
@@ -58,11 +58,13 @@ def funResult(amStatus):
 
 def funScan(lstHosts, boolCache):
 	# Initiate the scan
-	for strHost in lstHosts:
+	strHLen = str(len(lstHosts))
+	for i, strHost in enumerate(lstHosts):
 		if not boolCache and not objSLA.funAnalyze(strHost):
 			# If cached reports aren't allowed (default) - but a new assessment has failed to start
 			continue
 		funResult(objSLA.funOpStatus(strHost))
+		log.funLog(2, '[%s/%s] Done.' % (str(i + 1), strHLen))
 
 
 def funConScan(lstHosts, boolCache):
@@ -201,7 +203,7 @@ def main():
 
 
 def funBadExit(type, value, traceback):
-	log.funLog(1, 'Unhandled Exception: %s, %s, %s' % (type, value, traceback))
+	log.funLog(2, 'Unhandled Exception: %s, %s, %s' % (type, value, traceback))
 
 sys.excepthook = funBadExit
 
