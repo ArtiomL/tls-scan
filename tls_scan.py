@@ -69,7 +69,7 @@ def funScan(lstHosts, boolCache):
 
 def funConScan(lstHosts, boolCache):
 	# Concurrent scan
-	# Split the hosts list into groups of the concurrency size
+	# Split the hosts list into groups of the concurrency size (2D list)
 	lstMatrix = [lstHosts[i:i + objSLA.intConc] for i in range(0, len(lstHosts), objSLA.intConc)]
 	# Initiate the scan
 	for lstGroup in lstMatrix:
