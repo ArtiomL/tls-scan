@@ -44,14 +44,18 @@ objExCodes = clsExCodes()
 
 # Final grades list
 lstGrades = []
+# Hosts result count
+intRCount = 0
+
 
 def funResult(amStatus):
 	# Add grades to list or print assessment JSON
-	global lstGrades
+	global lstGrades, intRCount
 	if isinstance(amStatus, list):
 		for i in amStatus:
 			log.funLog(1, i)
 		lstGrades.extend(amStatus)
+		intRCount += 1
 	elif isinstance(amStatus, dict):
 		print json.dumps(amStatus, indent = 4)
 
@@ -177,7 +181,7 @@ def main():
 	strReport = '\r\n'.join(sorted(lstGrades, reverse = True))
 
 	# Format MIME message
-	objMIME = email.MIMEText('Total Hosts Submitted: %s\r\n%s' % (str(len(lstHosts)), strReport))
+	objMIME = email.MIMEText('Total Hosts: [%s/%s]\r\n%s' % (str(intRCount), str(len(lstHosts)), strReport))
 
 	# Mail the report
 	if objArgs.mail and not objArgs.json:
