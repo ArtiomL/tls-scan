@@ -69,13 +69,15 @@ def funScan(lstHosts, boolCache):
 
 def funConScan(lstHosts, boolCache):
 	# Concurrent scan
+	strHLen = str(len(lstHosts))
 	# Split the hosts list into groups of the concurrency size (2D list)
 	lstMatrix = [lstHosts[i:i + objSLA.intConc] for i in range(0, len(lstHosts), objSLA.intConc)]
 	# Initiate the scan
-	for lstGroup in lstMatrix:
+	for g, lstGroup in enumerate(lstMatrix):
 		# New assessment
 		if not boolCache:
-			for strHost in lstGroup:
+			for i, strHost in enumerate(lstGroup):
+				log.funLog(2, '[%s/%s] Starting...' % (str(g * objSLA.intConc + i +1), strHLen))
 				objSLA.funAnalyze(strHost)
 				time.sleep(objSLA.intCool)
 		# Check status
@@ -92,6 +94,7 @@ def funConScan(lstHosts, boolCache):
 				amStatus = objSLA.funOpStatus(strHost, True)
 				if amStatus:
 					# Mark host as completed
+					log.funLog(2, '[%s/%s] Done.' % (str(g * objSLA.intConc + i +1), strHLen))
 					lstGroup[i] += '#'
 					intReady += 1
 					funResult(amStatus)
