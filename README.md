@@ -33,7 +33,7 @@ Printing full assessment JSONs is also supported (`-j`).
 <br>
 ## Installation
 ### Dependencies
-[Requests](http://docs.python-requests.org/en/master/) HTTP library
+[Requests](http://docs.python-requests.org/en/master/user/install/#install) HTTP library:
 ```shell
 pip install requests
 ```
