@@ -79,6 +79,10 @@ strCFile = 'tls_scan.json'
 ### [tls_scan.py](tls_scan.py)
 This is the actual scan / report logic.<br>
 Run this program with command-line [arguments](#--help) relevant to your use case.
+```shell
+chmod u+x tls_scan.py
+./tls_scan.py -f tls_scan.json -l2 -m -s3
+```
 
 <br>
 ## Logging
