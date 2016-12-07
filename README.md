@@ -77,7 +77,8 @@ The config file path is controlled by the `-f` command line argument or the `str
 strCFile = 'tls_scan.json'
 ```
 ### [tls_scan.py](tls_scan.py)
-This is the actual scan / report logic. Run this program with command-line [arguments](#--help) relevant to your use case.
+This is the actual scan / report logic.
+Run this program with command-line [arguments](#--help) relevant to your use case.
 
 <br>
 ## Logging
