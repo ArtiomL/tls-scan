@@ -83,6 +83,7 @@ Run this program with command-line [arguments](#--help) relevant to your use cas
 chmod u+x tls_scan.py
 ./tls_scan.py -f tls_scan.json -l2 -m -s3
 ```
+Using cron (or a similar time-based job scheduler) to perform recurring, periodic scans is recommended.
 
 <br>
 ## Logging
