@@ -85,7 +85,7 @@ class clsSLA(object):
 			strGrade = 'X'
 			if strStaMess == 'Ready':
 				strGrade = diEP['grade']
-			# Show actual endpoint IP address or the first 8 chars of its SHA2 hash
+			# Show actual endpoint IP address or the first 8 chars of its SHA-256 hash
 			strIP = diEP['ipAddress'] if self.boolIPs else hashlib.sha256(diEP['ipAddress']).hexdigest()[:8]
 			lstGrades.append('[%s] %s, %s, %s' % (strGrade, diOper['host'], strIP, strStaMess))
 		return lstGrades
@@ -119,7 +119,7 @@ class clsSLA(object):
 								strDetMess = diEP['statusDetailsMessage']
 								if strDetMess != lstMessages[i]:
 									lstMessages[i] = strDetMess
-									# Show actual endpoint IP address or the first 8 chars of its SHA2 hash
+									# Show actual endpoint IP address or the first 8 chars of its SHA-256 hash
 									strIP = diEP['ipAddress'] if self.boolIPs else hashlib.sha256(diEP['ipAddress']).hexdigest()[:8]
 									log.funLog(3, '%s, IP: %s, %s' % (strHost, strIP, lstMessages[i]))
 					else:
