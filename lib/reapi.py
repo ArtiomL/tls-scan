@@ -80,12 +80,14 @@ class clsSLA(object):
 	def funGrades(self, diOper):
 		# Parse endpoints to get the grades
 		lstGrades = []
+		strIP = ''
 		for diEP in diOper['endpoints']:
 			strStaMess = diEP['statusMessage']
 			strGrade = 'X'
 			if strStaMess == 'Ready':
 				strGrade = diEP['grade']
-			lstGrades.append('[%s] %s, %s, %s' % (strGrade, diOper['host'], diEP['ipAddress'], strStaMess))
+			strIP = diEP['ipAddress'] if self.boolIPs else hashlib.sha256(diEP['ipAddress']).hexdigest()[:8]
+			lstGrades.append('[%s] %s, %s, %s' % (strGrade, diOper['host'], strIP, strStaMess))
 		return lstGrades
 
 	def funOpStatus(self, strHost, boolAsync = False):
