@@ -99,7 +99,7 @@ If run interactively, **_stdout_** is used for log messages (unless `-j` is set)
 ## --help
 ```
 ./tls_scan.py --help
-usage: tls_scan.py [-h] [-c] [-f CFILE] [-j] [-l {0,1,2,3}] [-m]
+usage: tls_scan.py [-h] [-c] [-f CFILE] [-i] [-j] [-l {0,1,2,3}] [-m]
                    [-s {2,3,4,5}] [-v]
                    [HOST [HOST ...]]
 
@@ -112,6 +112,8 @@ optional arguments:
   -h, --help    show this help message and exit
   -c            deliver cached assessment reports if available
   -f CFILE      config file location
+  -i            show real IP addresses (default: first 8 chars of their
+                SHA-256)
   -j            return assessment JSONs (default: grades only), disables -m
   -l {0,1,2,3}  set log level (default: 0)
   -m            send report by mail
