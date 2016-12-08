@@ -132,6 +132,9 @@ def main():
 	if objArgs.log:
 		log.intLogLevel = objArgs.log
 
+	# Show real IP addresses argument
+	objSLA.boolIPs = objArgs.ips
+
 	# Full assessment JSON argument
 	objSLA.boolJSON = objArgs.json
 
