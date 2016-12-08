@@ -112,8 +112,7 @@ optional arguments:
   -h, --help    show this help message and exit
   -c            deliver cached assessment reports if available
   -f CFILE      config file location
-  -i            show real IP addresses (default: first 8 chars of their
-                SHA-256)
+  -i            show IP addresses (default: first 8 chars of their SHA-256)
   -j            return assessment JSONs (default: grades only), disables -m
   -l {0,1,2,3}  set log level (default: 0)
   -m            send report by mail
