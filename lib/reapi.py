@@ -2,8 +2,9 @@
 # tls-scan - lib: REST API
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.0, 25/11/2016
+# v1.0.1, 09/12/2016
 
+import hashlib
 import json
 import log
 import re
@@ -12,7 +13,7 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 # SSL Labs REST API
 class clsSLA(object):
