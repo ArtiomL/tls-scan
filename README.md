@@ -81,7 +81,7 @@ This is the actual scan / report logic.<br>
 Run this program with command-line [arguments](#--help) relevant to your use case. For example:
 ```shell
 chmod u+x tls_scan.py
-./tls_scan.py -f tls_scan.json -l2 -m -s3
+./tls_scan.py -f tls_scan.json -i -l2 -m -s3
 ```
 Using cron (or a similar time-based job scheduler) to perform recurring, periodic scans is recommended.
 
