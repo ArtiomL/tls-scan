@@ -36,6 +36,8 @@ class clsSLA(object):
 		self.intCool = 1
 		# Polling interval (in sec.)
 		self.intPoll = 5
+		# Show IP addresses in reports
+		self.boolIPs = False
 		# Return full assessment JSON (only grades by default)
 		self.boolJSON = False
 
@@ -75,8 +77,7 @@ class clsSLA(object):
 				log.funLog(2, repr(e), 'err')
 				break
 
-	@staticmethod
-	def funGrades(diOper):
+	def funGrades(self, diOper):
 		# Parse endpoints to get the grades
 		lstGrades = []
 		for diEP in diOper['endpoints']:
