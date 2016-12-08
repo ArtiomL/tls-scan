@@ -2,7 +2,7 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.3, 30/11/2016
+# v1.0.3, 09/12/2016
 
 import argparse
 import atexit
@@ -25,7 +25,7 @@ __version__ = '1.0.3'
 strCFile = 'tls_scan.json'
 
 # Log prefix
-log.strLogID = '[-v%s-161130-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
+log.strLogID = '[-v%s-161209-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
 
 # SSL Labs REST API
 objSLA = reapi.clsSLA()
@@ -110,6 +110,7 @@ def funArgParser():
 		epilog = 'https://github.com/ArtiomL/tls-scan')
 	objArgParser.add_argument('-c', help ='deliver cached assessment reports if available', action = 'store_true', dest = 'cache')
 	objArgParser.add_argument('-f', help ='config file location', dest = 'cfile')
+	objArgParser.add_argument('-i', help ='show real IP addresses (default: first 8 chars of their SHA-256)', action = 'store_true', dest = 'ips')
 	objArgParser.add_argument('-j', help ='return assessment JSONs (default: grades only), disables -m', action = 'store_true', dest = 'json')
 	objArgParser.add_argument('-l', help ='set log level (default: 0)', choices = [0, 1, 2, 3], type = int, dest = 'log')
 	objArgParser.add_argument('-m', help ='send report by mail', action = 'store_true', dest = 'mail')
