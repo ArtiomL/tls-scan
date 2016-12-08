@@ -110,7 +110,7 @@ def funArgParser():
 		epilog = 'https://github.com/ArtiomL/tls-scan')
 	objArgParser.add_argument('-c', help ='deliver cached assessment reports if available', action = 'store_true', dest = 'cache')
 	objArgParser.add_argument('-f', help ='config file location', dest = 'cfile')
-	objArgParser.add_argument('-i', help ='show real IP addresses (default: first 8 chars of their SHA-256)', action = 'store_true', dest = 'ips')
+	objArgParser.add_argument('-i', help ='show IP addresses (default: first 8 chars of their SHA-256)', action = 'store_true', dest = 'ips')
 	objArgParser.add_argument('-j', help ='return assessment JSONs (default: grades only), disables -m', action = 'store_true', dest = 'json')
 	objArgParser.add_argument('-l', help ='set log level (default: 0)', choices = [0, 1, 2, 3], type = int, dest = 'log')
 	objArgParser.add_argument('-m', help ='send report by mail', action = 'store_true', dest = 'mail')
