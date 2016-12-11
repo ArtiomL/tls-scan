@@ -190,6 +190,7 @@ def main():
 	# Mail the report
 	if objArgs.mail and not objArgs.json:
 		try:
+			log.funLog(1, 'Mailing the report...')
 			objMIME['From'] = '%s <%s>' % (strMFrom, diCfg['from'])
 			# Remove spaces and split recipients into a list delimited by , or ;
 			lstTo = re.split(r',|;', diCfg['to'].replace(' ', ''))
@@ -205,6 +206,7 @@ def main():
 			objMail.login(diCfg['user'], diCfg['pass'].decode('base64'))
 			# Send mail
 			objMail.sendmail(diCfg['from'], lstTo, objMIME.as_string())
+			log.funLog(1, 'Success!')
 			# Terminate the SMTP session and close the connection
 			objMail.quit()
 		except Exception as e:
