@@ -28,7 +28,7 @@ Running (*up to* **_5_**) concurrent assessments is supported (`-s`), but please
 
 The grade report can then be sent by mail (`-m`) or written to **_stdout_**.
 
-Endpoint IP addresses are obfuscated with the first 8 chars of their SHA-256 hash by default.
+Endpoint IP addresses are obfuscated with the first 8 chars of their SHA-256 hash by default (`-i` to show).
 
 Printing full assessment JSONs is also supported (`-j`).
 
