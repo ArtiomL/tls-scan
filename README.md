@@ -26,7 +26,7 @@ The code in this repository allows you to scan a list of public TLS/SSL web serv
 
 Running (*up to* **_5_**) concurrent assessments is supported (`-s`), but please keep down the number of concurrent assessments to a minimum. If you're not in a hurry, test only one hostname at a time (default).
 
-The grade report can then be sent by mail (`-m`) or written to **_stdout_**.
+The grade report can then be sent by mail (`-m`) or written to **_stdout_**:
 
 ```
 [A+] artioml.net, 0e411f05, Ready
