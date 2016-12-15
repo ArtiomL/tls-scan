@@ -2,7 +2,7 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.4, 11/12/2016
+# v1.0.5, 15/12/2016
 
 import argparse
 import atexit
@@ -19,13 +19,13 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '1.0.4'
+__version__ = '1.0.5'
 
 # Config file
 strCFile = 'tls_scan.json'
 
 # Log prefix
-log.strLogID = '[-v%s-161211-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
+log.strLogID = '[-v%s-161215-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
 
 # SSL Labs REST API
 objSLA = reapi.clsSLA()
@@ -114,7 +114,7 @@ def funArgParser():
 	objArgParser.add_argument('-j', help ='return assessment JSONs (default: grades only), disables -m', action = 'store_true', dest = 'json')
 	objArgParser.add_argument('-l', help ='set log level (default: 0)', choices = [0, 1, 2, 3], type = int, dest = 'log')
 	objArgParser.add_argument('-m', help ='send report by mail', action = 'store_true', dest = 'mail')
-	objArgParser.add_argument('-s', help ='number of simultaneous assessments (default: 1)', choices = [2, 3, 4, 5], type = int, dest = 'conc')
+	objArgParser.add_argument('-s', help ='number of simultaneous assessments (default: 1)', choices = range(2, 11), metavar = '[2-10]', type = int, dest = 'conc')
 	objArgParser.add_argument('-v', action ='version', version = '%(prog)s v' + __version__)
 	objArgParser.add_argument('HOST', help = 'list of hosts to scan (overrides config file)', nargs = '*')
 	return objArgParser.parse_args()
