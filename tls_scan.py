@@ -2,7 +2,7 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.5, 15/12/2016
+# v1.0.6, 16/12/2016
 
 import argparse
 import atexit
@@ -19,13 +19,13 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '1.0.5'
+__version__ = '1.0.6'
 
 # Config file
 strCFile = 'tls_scan.json'
 
 # Log prefix
-log.strLogID = '[-v%s-161215-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
+log.strLogID = '[-v%s-161216-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
 
 # SSL Labs REST API
 objSLA = reapi.clsSLA()
@@ -169,7 +169,7 @@ def main():
 	log.funLog(1, 'Scanning %s host(s)... [Cache: %s, Concurrency: %s]' % (str(len(lstHosts)), bool(objArgs.cache), str(objSLA.intConc)))
 
 	# Check SSL Labs availability
-	if not objSLA.funInfo():
+	if not objSLA.funInfo(True):
 		log.funLog(1, 'SSL Labs unavailable or maximum concurrent assessments exceeded.', 'err')
 		sys.exit(objExCodes.nosrv)
 
