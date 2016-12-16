@@ -2,7 +2,7 @@
 # tls-scan - lib: REST API
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.1, 09/12/2016
+# v1.0.2, 16/12/2016
 
 import hashlib
 import json
@@ -13,7 +13,7 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '1.0.1'
+__version__ = '1.0.2'
 
 # SSL Labs REST API
 class clsSLA(object):
@@ -62,9 +62,9 @@ class clsSLA(object):
 					# 503 - the service is not available (e.g. down for maintenance)
 					# 529 - the service is overloaded
 					log.funLog(2, 'Request rate too high or service unavailable [%s]! Sleeping for %s sec.' % (str(objHResp.status_code), str(self.intCool)))
-					time.sleep(self.intCool)
 					# Update cool-off period
 					self.funInfo()
+					time.sleep(self.intCool)
 				elif objHResp.status_code == 200:
 					log.funLog(1, 'New assessment started for %s: %s' % (strHost, json.loads(objHResp.content)['status']))
 					return True
