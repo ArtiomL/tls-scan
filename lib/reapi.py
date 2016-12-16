@@ -42,13 +42,14 @@ class clsSLA(object):
 		self.boolJSON = False
 
 	def funInfo(self, boolConTune = False):
-		# Check availability of SSL Labs servers
+		# Check availability of SSL Labs servers, adjust concurrency and cool-off period
 		try:
 			objHResp = json.loads(self.objHS.get(self.strAPIE + self.strInfo).content)
 			self.intCool = objHResp['newAssessmentCoolOff'] / 1000
 			log.funLog(2, 'Cool-off period after each new assessment: %s sec.' % self.intCool)
 			intDelta = objHResp['maxAssessments'] - objHResp['currentAssessments']
 			if boolConTune and self.intConc > intDelta:
+				# Trim concurrency on init
 				self.intConc = intDelta
 			return True if intDelta > 0 else False
 
