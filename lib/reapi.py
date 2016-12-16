@@ -48,7 +48,7 @@ class clsSLA(object):
 			self.intCool = objHResp['newAssessmentCoolOff'] / 1000
 			log.funLog(2, 'Cool-off period after each new assessment: %s sec.' % self.intCool)
 			intDelta = objHResp['maxAssessments'] - objHResp['currentAssessments']
-			if boolConTune and self.intConc > intDelta
+			if boolConTune and self.intConc > intDelta:
 				self.intConc = intDelta
 			return True if intDelta > 0 else False
 
