@@ -166,13 +166,12 @@ def main():
 		log.funLog(1, 'Ignoring invalid hostname(s): %s' % ', '.join(list(set(lstHosts) - set(lstHClean))), 'err')
 	lstHosts = lstHClean
 
-	log.funLog(1, 'Scanning %s host(s)... [Cache: %s, Concurrency: %s]' % (str(len(lstHosts)), bool(objArgs.cache), str(objSLA.intConc)))
-
 	# Check SSL Labs availability
 	if not objSLA.funInfo(True):
 		log.funLog(1, 'SSL Labs unavailable or maximum concurrent assessments exceeded.', 'err')
 		sys.exit(objExCodes.nosrv)
 
+	log.funLog(1, 'Scanning %s host(s)... [Cache: %s, Concurrency: %s]' % (str(len(lstHosts)), bool(objArgs.cache), str(objSLA.intConc)))
 
 	# Scan
 	if objSLA.intConc > 1:
