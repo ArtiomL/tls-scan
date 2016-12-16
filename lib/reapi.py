@@ -41,13 +41,16 @@ class clsSLA(object):
 		# Return full assessment JSON (only grades by default)
 		self.boolJSON = False
 
-	def funInfo(self):
+	def funInfo(self, boolConTune = False):
 		# Check availability of SSL Labs servers
 		try:
 			objHResp = json.loads(self.objHS.get(self.strAPIE + self.strInfo).content)
 			self.intCool = objHResp['newAssessmentCoolOff'] / 1000
 			log.funLog(2, 'Cool-off period after each new assessment: %s sec.' % self.intCool)
-			return True if objHResp['currentAssessments'] < objHResp['maxAssessments'] else False
+			intDelta = objHResp['maxAssessments'] - objHResp['currentAssessments']
+			if boolConTune and self.intConc > intDelta
+				self.intConc = intDelta
+			return True if intDelta > 0 else False
 
 		except Exception as e:
 			log.funLog(2, repr(e), 'err')
