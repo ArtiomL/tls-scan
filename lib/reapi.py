@@ -2,7 +2,7 @@
 # tls-scan - lib: REST API
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.2, 16/12/2016
+# v1.0.3, 20/12/2016
 
 import hashlib
 import json
@@ -13,7 +13,7 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '1.0.2'
+__version__ = '1.0.3'
 
 # SSL Labs REST API
 class clsSLA(object):
@@ -91,7 +91,7 @@ class clsSLA(object):
 				strGrade = diEP['grade']
 			# Show actual endpoint IP address or the first 8 chars of its SHA-256 hash
 			strIP = diEP['ipAddress'] if self.boolIPs else hashlib.sha256(diEP['ipAddress']).hexdigest()[:8]
-			lstGrades.append('[%s] %s, %s, %s' % (strGrade, diOper['host'], strIP, strStaMess))
+			lstGrades.append('[%s] %s, %s, %s (%s sec.)' % (strGrade, diOper['host'], strIP, strStaMess, diEP['duration'] / 1000))
 		return lstGrades
 
 	def funOpStatus(self, strHost, boolAsync = False):
