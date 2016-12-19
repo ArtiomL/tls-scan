@@ -186,10 +186,9 @@ def main():
 	# Mail the report
 	if objArgs.mail and not objArgs.json:
 		# Format MIME message
-		objMIME = email.MIMEText('Total Hosts: [%s/%s], Concurrency: %s\r\n%s\r\n%s' %
-								(str(intRCount), str(len(lstHosts)), str(objSLA.intConc), strReport, ' '.join(sys.argv[1:])))
+		objMIME = email.MIMEText('Total Hosts: [%s/%s], Concurrency: %s\r\n%s' % (str(intRCount), str(len(lstHosts)), str(objSLA.intConc), strReport))
+		log.funLog(1, 'Mailing the report...')
 		try:
-			log.funLog(1, 'Mailing the report...')
 			objMIME['From'] = '%s <%s>' % (strMFrom, diCfg['from'])
 			# Remove spaces and split recipients into a list delimited by , or ;
 			lstTo = re.split(r',|;', diCfg['to'].replace(' ', ''))
