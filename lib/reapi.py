@@ -46,7 +46,7 @@ class clsSLA(object):
 		try:
 			objHResp = json.loads(self.objHS.get(self.strAPIE + self.strInfo).content)
 			self.intCool = objHResp['newAssessmentCoolOff'] / 1000
-			log.funLog(2, 'Cool-off period after each new assessment: %s sec.' % self.intCool)
+			log.funLog(2, 'Cool-off period after each new assessment: %s sec.' % str(self.intCool))
 			intDelta = objHResp['maxAssessments'] - objHResp['currentAssessments']
 			if boolConTune and self.intConc > intDelta:
 				# Trim concurrency on init
@@ -91,7 +91,7 @@ class clsSLA(object):
 				strGrade = diEP['grade']
 			# Show actual endpoint IP address or the first 8 chars of its SHA-256 hash
 			strIP = diEP['ipAddress'] if self.boolIPs else hashlib.sha256(diEP['ipAddress']).hexdigest()[:8]
-			lstGrades.append('[%s] %s, %s, %s (%s sec.)' % (strGrade, diOper['host'], strIP, strStaMess, diEP['duration'] / 1000))
+			lstGrades.append('[%s] %s, %s, %s (%s sec.)' % (strGrade, diOper['host'], strIP, strStaMess, str(diEP['duration'] / 1000)))
 		return lstGrades
 
 	def funOpStatus(self, strHost, boolAsync = False):
@@ -114,7 +114,7 @@ class clsSLA(object):
 		if not boolAsync:
 			# Log container for per-endpoint messages
 			lstMessages = [None] * len(diOper['endpoints'])
-			log.funLog(2, 'Total number of endpoints: %s' % len(lstMessages))
+			log.funLog(2, 'Total number of endpoints: %s' % str(len(lstMessages)))
 			while strStatus == 'IN_PROGRESS':
 				try:
 					if log.intLogLevel >= 3:
