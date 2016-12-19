@@ -29,7 +29,7 @@ Running (*up to* **_10_**) concurrent assessments is supported (`-s`), but pleas
 The grade report can then be sent by mail (`-m`) or written to **_stdout_**:
 
 ```
-[A+] artioml.net, 0e411f05, Ready
+[A+] artioml.net, 0e411f05, Ready (121 sec.)
 ```
 
 Endpoint IP addresses are obfuscated with the first 8 chars of their SHA-256 hash by default (`-i` to show).
