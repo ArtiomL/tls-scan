@@ -183,11 +183,10 @@ def main():
 	# Sort the grades in reverse and add line breaks
 	strReport = '\r\n'.join(sorted(lstGrades, reverse = True))
 
-	# Format MIME message
-	objMIME = email.MIMEText('Total Hosts: [%s/%s]\r\n%s' % (str(intRCount), str(len(lstHosts)), strReport))
-
 	# Mail the report
 	if objArgs.mail and not objArgs.json:
+		# Format MIME message
+		objMIME = email.MIMEText('Total Hosts: [%s/%s], Concurrency: %s\r\n%s' % (str(intRCount), str(len(lstHosts)), str(objSLA.intConc), strReport))
 		try:
 			log.funLog(1, 'Mailing the report...')
 			objMIME['From'] = '%s <%s>' % (strMFrom, diCfg['from'])
