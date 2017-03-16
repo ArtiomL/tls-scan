@@ -5,7 +5,7 @@
 [![Issues](https://img.shields.io/github/issues/ArtiomL/tls-scan.svg)](https://github.com/ArtiomL/tls-scan/issues)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
-
+<p></p>
 ## Table of Contents
 - [Description](#description)
 - [Installation](#installation)
@@ -17,7 +17,7 @@
 - [Help](#--help)
 - [License](LICENSE)
 
-
+<br>
 ## Description
 
 Automated TLS/SSL server tests for multiple hosts using the [SSL Labs](https://www.ssllabs.com/ssltest/) REST [API](https://github.com/ssllabs/ssllabs-scan/blob/stable/ssllabs-api-docs.md).
