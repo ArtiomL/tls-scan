@@ -83,7 +83,7 @@ The config file path is controlled by the `-f` command line argument or the `str
 strCFile = 'tls_scan.json'
 ```
 ### [tls_scan.py](tls_scan.py)
-This is the actual scan / report logic.<br>
+This is the actual scan / report logic.&nbsp;&nbsp;
 Run this program with command-line [arguments](#--help) relevant to your use case. For example:
 ```shell
 chmod u+x tls_scan.py
