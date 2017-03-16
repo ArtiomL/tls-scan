@@ -6,18 +6,20 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
 &nbsp;&nbsp;
+
 ## Table of Contents
 - [Description](#description)
 - [Installation](#installation)
-	- [Dependencies](#dependencies)
-	- [Git](#git)
-	- [tls_scan.json](#tls_scanjson)
-	- [tls_scan.py](#tls_scanpy)
+ - [Dependencies](#dependencies)
+ - [Git](#git)
+ - [tls_scan.json](#tls_scanjson)
+ - [tls_scan.py](#tls_scanpy)
 - [Logging](#logging)
 - [Help](#--help)
 - [License](LICENSE)
 
 &nbsp;&nbsp;
+
 ## Description
 
 Automated TLS/SSL server tests for multiple hosts using the [SSL Labs](https://www.ssllabs.com/ssltest/) REST [API](https://github.com/ssllabs/ssllabs-scan/blob/stable/ssllabs-api-docs.md).
@@ -37,6 +39,7 @@ Endpoint IP addresses are obfuscated with the first 8 chars of their SHA-256 has
 Printing full assessment JSONs is also supported (`-j`).
 
 &nbsp;&nbsp;
+
 ## Installation
 ### Dependencies
 [Requests](http://docs.python-requests.org/en/master/user/install/#install) HTTP library:
@@ -76,17 +79,14 @@ Schema:
 | to         | to-address(es) - delimit with `;` |
 | hosts      | list of hosts to scan |
 
-&nbsp;&nbsp;
-
+<br>
 The config file path is controlled by the `-f` command line argument or the `strCFile` global variable (in [tls_scan.py](tls_scan.py)):
 ```python
 # Config file
 strCFile = 'tls_scan.json'
 ```
 ### [tls_scan.py](tls_scan.py)
-This is the actual scan / report logic.
-&nbsp;&nbsp;
-
+This is the actual scan / report logic.<br>
 Run this program with command-line [arguments](#--help) relevant to your use case. For example:
 ```shell
 chmod u+x tls_scan.py
@@ -94,10 +94,9 @@ chmod u+x tls_scan.py
 ```
 Using cron (or a similar time-based job scheduler) to perform recurring, periodic scans is recommended.
 
-&nbsp;&nbsp;
+<br>
 ## Logging
-All logging is **disabled** by default. Please use the `-l {0,1,2,3}` argument to set the required verbosity.
-&nbsp;&nbsp;
+All logging is **disabled** by default. Please use the `-l {0,1,2,3}` argument to set the required verbosity.<br>
 Alternatively, this is controlled by the `intLogLevel` variable of the [log](/lib/log.py) library:
 ```python
 # Log level to /var/log/messages (or stdout)
@@ -105,7 +104,7 @@ intLogLevel = 0
 ```
 If run interactively, **_stdout_** is used for log messages (unless `-j` is set), otherwise `/var/log/messages` will be used.
 
-&nbsp;&nbsp;
+<br>
 ## --help
 ```
 ./tls_scan.py --help
