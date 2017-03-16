@@ -83,7 +83,8 @@ The config file path is controlled by the `-f` command line argument or the `str
 strCFile = 'tls_scan.json'
 ```
 ### [tls_scan.py](tls_scan.py)
-This is the actual scan / report logic.&nbsp;&nbsp;
+This is the actual scan / report logic.
+&nbsp;&nbsp;
 Run this program with command-line [arguments](#--help) relevant to your use case. For example:
 ```shell
 chmod u+x tls_scan.py
@@ -93,7 +94,8 @@ Using cron (or a similar time-based job scheduler) to perform recurring, periodi
 
 &nbsp;&nbsp;
 ## Logging
-All logging is **disabled** by default. Please use the `-l {0,1,2,3}` argument to set the required verbosity.<br>
+All logging is **disabled** by default. Please use the `-l {0,1,2,3}` argument to set the required verbosity.
+&nbsp;&nbsp;
 Alternatively, this is controlled by the `intLogLevel` variable of the [log](/lib/log.py) library:
 ```python
 # Log level to /var/log/messages (or stdout)
