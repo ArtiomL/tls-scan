@@ -36,7 +36,7 @@ Endpoint IP addresses are obfuscated with the first 8 chars of their SHA-256 has
 
 Printing full assessment JSONs is also supported (`-j`).
 
-<br>
+&nbsp;&nbsp;
 ## Installation
 ### Dependencies
 [Requests](http://docs.python-requests.org/en/master/user/install/#install) HTTP library:
@@ -76,7 +76,7 @@ Schema:
 | to         | to-address(es) - delimit with `;` |
 | hosts      | list of hosts to scan |
 
-<br>
+&nbsp;&nbsp;
 The config file path is controlled by the `-f` command line argument or the `strCFile` global variable (in [tls_scan.py](tls_scan.py)):
 ```python
 # Config file
@@ -91,7 +91,7 @@ chmod u+x tls_scan.py
 ```
 Using cron (or a similar time-based job scheduler) to perform recurring, periodic scans is recommended.
 
-<br>
+&nbsp;&nbsp;
 ## Logging
 All logging is **disabled** by default. Please use the `-l {0,1,2,3}` argument to set the required verbosity.<br>
 Alternatively, this is controlled by the `intLogLevel` variable of the [log](/lib/log.py) library:
@@ -101,7 +101,7 @@ intLogLevel = 0
 ```
 If run interactively, **_stdout_** is used for log messages (unless `-j` is set), otherwise `/var/log/messages` will be used.
 
-<br>
+&nbsp;&nbsp;
 ## --help
 ```
 ./tls_scan.py --help
