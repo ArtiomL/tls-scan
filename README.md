@@ -5,7 +5,7 @@
 [![Issues](https://img.shields.io/github/issues/ArtiomL/tls-scan.svg)](https://github.com/ArtiomL/tls-scan/issues)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
-  
+&nbsp;&nbsp;
 ## Table of Contents
 - [Description](#description)
 - [Installation](#installation)
