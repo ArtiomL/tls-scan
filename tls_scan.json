@@ -1,12 +1,12 @@
 {
-		"server": "smtp.gmail.com:587",
-		"user": "marla@gmail.com",
-		"pass": "d293TXVjaEZha2Ux",
-		"from": "marla@gmail.com",
-		"to": "tyler@gmail.com; chloe@gmail.com",
-		"hosts": [
-				"example.com",
-				"example.net",
-				"example.org"
-		]
+	"server": "smtp.gmail.com:587",
+	"user": "marla@gmail.com",
+	"pass": "d293TXVjaEZha2Ux",
+	"from": "marla@gmail.com",
+	"to": "tyler@gmail.com; chloe@gmail.com",
+	"hosts": [
+		"example.com",
+		"example.net",
+		"example.org"
+	]
 }
