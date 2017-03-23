@@ -74,7 +74,7 @@ Schema:
 | :--------- |:--------------- |
 | server     | SMTP server host:port |
 | user       | username |
-| pass       | password (base64-encoded) |
+| pass       | password ([base64-encoded](https://github.com/ArtiomL/tls-scan/issues/17#issuecomment-286020627)) |
 | from       | from-address string ([RFC 822](https://tools.ietf.org/html/rfc822.html)) |
 | to         | to-address(es) - delimit with `;` |
 | hosts      | list of hosts to scan |
