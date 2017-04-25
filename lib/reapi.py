@@ -2,7 +2,7 @@
 # tls-scan - lib: REST API
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.3, 20/12/2016
+# v1.0.4, 25/04/2017
 
 import hashlib
 import json
@@ -36,6 +36,8 @@ class clsSLA(object):
 		self.intCool = 1
 		# Polling interval (in sec.)
 		self.intPoll = 5
+		# Proceed with assessments even when the server certificate doesn't match the assessment hostname
+		self.boolIM = False
 		# Show IP addresses in reports
 		self.boolIPs = False
 		# Return full assessment JSON (only grades by default)
@@ -60,6 +62,8 @@ class clsSLA(object):
 		# Initiate a new assessment for a host
 		while True:
 			try:
+				if self.boolIM:
+					self.strAnStNew += '&ignoreMismatch=on'
 				objHResp = self.objHS.get(self.strAPIE + self.strAnalyze + strHost + self.strAnStNew)
 				if objHResp.status_code in [429, 503, 529]:
 					# 429 - client request rate too high or too many new assessments too fast
@@ -88,7 +92,7 @@ class clsSLA(object):
 			strStaMess = diEP['statusMessage']
 			strGrade = 'X'
 			if strStaMess == 'Ready':
-				strGrade = diEP['grade']
+				strGrade = diEP['grade'] if not self.boolIM else diEP['gradeTrustIgnored']
 			# Show actual endpoint IP address or the first 8 chars of its SHA-256 hash
 			strIP = diEP['ipAddress'] if self.boolIPs else hashlib.sha256(diEP['ipAddress']).hexdigest()[:8]
 			lstGrades.append('[%s] %s, %s, %s (%s sec.)' % (strGrade, diOper['host'], strIP, strStaMess, str(diEP['duration'] / 1000)))
