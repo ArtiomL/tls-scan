@@ -116,7 +116,7 @@ If run interactively, **_stdout_** is used for log messages (unless `-j` is set)
 ```
 ./tls_scan.py --help
 usage: tls_scan.py [-h] [-c] [-f CFILE] [-i] [-j] [-l {0,1,2,3}] [-m]
-                   [-s [2-10]] [-v]
+                   [-s [2-10]] [-t] [-v]
                    [HOST [HOST ...]]
 
 Automated TLS/SSL Server Tests for Multiple Hosts
@@ -133,6 +133,7 @@ optional arguments:
   -l {0,1,2,3}  set log level (default: 0)
   -m            send report by mail
   -s [2-10]     number of simultaneous assessments (default: 1)
+  -t            ignore server certificate mismatch
   -v            show program's version number and exit
 
 https://github.com/ArtiomL/tls-scan
