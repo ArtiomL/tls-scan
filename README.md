@@ -24,7 +24,7 @@
 
 Automated TLS/SSL server tests for multiple hosts using the [SSL Labs](https://www.ssllabs.com/ssltest/) REST [API](https://github.com/ssllabs/ssllabs-scan/blob/stable/ssllabs-api-docs.md).
 
-The code in this repository allows you to scan a list of public TLS/SSL web servers for certificate issues, protocol and cipher suite support, crypto vulnerabilities [etc](https://www.ssllabs.com/downloads/SSL_Server_Rating_Guide.pdf).
+The code in this repository allows you to scan a list of public TLS/SSL web servers for certificate issues, protocol and cipher suite support, crypto vulnerabilities [etc](https://github.com/ssllabs/research/wiki/SSL-Server-Rating-Guide).
 
 Running (*up to* **_10_**) concurrent assessments is supported (`-s`), but please keep down the number of concurrent assessments to a minimum. If you're not in a hurry, test only one hostname at a time (default).
 
