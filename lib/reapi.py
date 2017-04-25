@@ -13,7 +13,7 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '1.0.3'
+__version__ = '1.0.4'
 
 # SSL Labs REST API
 class clsSLA(object):
