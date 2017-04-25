@@ -2,7 +2,7 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.5, 20/12/2016
+# v1.0.6, 25/04/2017
 
 import argparse
 import atexit
@@ -19,7 +19,7 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '1.0.5'
+__version__ = '1.0.6'
 
 # Config file
 strCFile = 'tls_scan.json'
@@ -115,6 +115,7 @@ def funArgParser():
 	objArgParser.add_argument('-l', help ='set log level (default: 0)', choices = [0, 1, 2, 3], type = int, dest = 'log')
 	objArgParser.add_argument('-m', help ='send report by mail', action = 'store_true', dest = 'mail')
 	objArgParser.add_argument('-s', help ='number of simultaneous assessments (default: 1)', choices = range(2, 11), metavar = '[2-10]', type = int, dest = 'conc')
+	objArgParser.add_argument('-t', help ='ignore server certificate mismatch', action = 'store_true', dest = 'im')
 	objArgParser.add_argument('-v', action ='version', version = '%(prog)s v' + __version__)
 	objArgParser.add_argument('HOST', help = 'list of hosts to scan (overrides config file)', nargs = '*')
 	return objArgParser.parse_args()
@@ -131,6 +132,9 @@ def main():
 	# Set log level
 	if objArgs.log:
 		log.intLogLevel = objArgs.log
+
+	# Ignore server certificate mismatch
+	objSLA.boolIM = objArgs.im
 
 	# Show real IP addresses argument
 	objSLA.boolIPs = objArgs.ips
