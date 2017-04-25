@@ -45,6 +45,8 @@ class clsSLA(object):
 
 	def funInfo(self, boolConTune = False):
 		# Check availability of SSL Labs servers, adjust concurrency and cool-off period
+		if self.boolIM:
+			self.strAnStNew += '&ignoreMismatch=on'
 		try:
 			objHResp = json.loads(self.objHS.get(self.strAPIE + self.strInfo).content)
 			self.intCool = objHResp['newAssessmentCoolOff'] / 1000
@@ -62,8 +64,6 @@ class clsSLA(object):
 		# Initiate a new assessment for a host
 		while True:
 			try:
-				if self.boolIM:
-					self.strAnStNew += '&ignoreMismatch=on'
 				objHResp = self.objHS.get(self.strAPIE + self.strAnalyze + strHost + self.strAnStNew)
 				if objHResp.status_code in [429, 503, 529]:
 					# 429 - client request rate too high or too many new assessments too fast
