@@ -1,3 +1,8 @@
+# tls-scan - Build
+# https://github.com/ArtiomL/tls-scan
+# Artiom Lichtenstein
+# v1.0.0, 27/11/2017
+
 sudo: false
 
 language: python
