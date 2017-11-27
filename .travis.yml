@@ -1,6 +1,5 @@
 sudo: false
 
-
 language: python
 
 python:
@@ -10,4 +9,4 @@ install:
   - pip install requests
 
 script:
-  - tls_scan.py -c artioml.net
+  - ./tls_scan.py -c artioml.net
