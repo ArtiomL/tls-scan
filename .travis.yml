@@ -1,7 +1,7 @@
 # tls-scan - Build
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.0, 27/11/2017
+# v1.0.1, 31/12/2017
 
 sudo: false
 
@@ -17,3 +17,7 @@ install:
 
 script:
   - ./tls_scan.py -c artioml.net
+
+notifications:
+  slack:
+    secure: "Sc4xEaLjO2ieluiEd0AQ8/HhGsz7TLQcRnnv8HQUn18UgAb368shZfBkWQi65efknJ9WUvzXQnJOo4uaV14E8WNydFaLYe2gR7/remwyipMyqfz/+HcGO/hjkhqP2v5wbm8B+6a4Xwymb9UPmIl3qdlAYy9Oa8TSNOUPQm8ka4DEo54ESTUldOGvNZhGecLvsj/5DaHCgscXK8RZAfh/TfT6AvSaT5W73qGHcgIVSS/oreelDrtkzzCyXMPsdeZ5/Ia+uQdTdP1Ab2qxUYxlv6zdHCUvVl77vQxJIUDrT0OTLG82DK0Xm9Hol1wtG8uvPcTHUaFJ8DgljHulEnVEUbeaifapEb9INiXVqZjmB0IQ0x75ZrgwEb54YmdpNznkvw6d4OQuBAAkbODI7570hnAEoh/hFjvOhrm9NhN2baHL7IZfreiAsredTE3C4QwN2YwMDKnRGAeX8SJ7IlYGf64wKEwxrKm4iTXJKPUP+9F5mPI7cIdbq/SCfLjfd0TlIeZyrjq2gbut8Xo4b7iW5k9g6iqFDCAYL38G05/ZZcNFICWwjvjFxioUQruRxI/KgOHNhMjG2jbUDoEG5ypnxKARunOoIr7UoyTyJDdmefepdsfmaHHyBn4gUt63uA9WpjaByK72BPzonfGoZKCrOVfZ2/63xLirG+2hQVAyBDY="
