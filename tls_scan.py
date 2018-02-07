@@ -2,7 +2,7 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.6, 25/04/2017
+# v1.1.0, 08/02/2018
 
 import argparse
 import atexit
@@ -13,13 +13,14 @@ import lib.log as log
 import lib.reapi as reapi
 import os
 import re
+import slackclient
 import smtplib
 import sys
 import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '1.0.6'
+__version__ = '1.1.0'
 
 # Config file
 strCFile = 'tls_scan.json'
@@ -111,7 +112,8 @@ def funArgParser():
 	objArgParser.add_argument('-c', help ='deliver cached assessment reports if available', action = 'store_true', dest = 'cache')
 	objArgParser.add_argument('-f', help ='config file location', dest = 'cfile')
 	objArgParser.add_argument('-i', help ='show IP addresses (default: first 8 chars of their SHA-256)', action = 'store_true', dest = 'ips')
-	objArgParser.add_argument('-j', help ='return assessment JSONs (default: grades only), disables -m', action = 'store_true', dest = 'json')
+	objArgParser.add_argument('-j', help ='return assessment JSONs (default: grades only), disables -m and -k', action = 'store_true', dest = 'json')
+	objArgParser.add_argument('-k', help ='send report to a Slack channel', action = 'store_true', dest = 'slack')
 	objArgParser.add_argument('-l', help ='set log level (default: 0)', choices = [0, 1, 2, 3], type = int, dest = 'log')
 	objArgParser.add_argument('-m', help ='send report by mail', action = 'store_true', dest = 'mail')
 	objArgParser.add_argument('-s', help ='number of simultaneous assessments (default: 1)', choices = range(2, 11), metavar = '[2-10]', type = int, dest = 'conc')
