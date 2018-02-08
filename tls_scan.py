@@ -197,7 +197,9 @@ def main():
 		log.funLog(1, 'Slacking the report...')
 		try:
 			objSlack = slackclient.SlackClient(diCfg['token'].decode('base64'))
-			objSlack.api_call('chat.postMessage', username = strMFrom, channel = diCfg['channel'], text = '```\n%s\n```' % strReport, icon_url = strSIcon)
+			diSResp = objSlack.api_call('chat.postMessage', username = strMFrom, channel = diCfg['channel'], text = '```\n%s\n```' % strReport, icon_url = strSIcon)
+			if not diSResp['ok']:
+				raise Exception(diSResp['error'])
 		except Exception as e:
 			log.funLog(2, repr(e), 'err')
 
