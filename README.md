@@ -62,7 +62,7 @@ git clone https://github.com/ArtiomL/tls-scan.git
 or [download](https://github.com/ArtiomL/tls-scan/archive/master.zip).
 
 ### [tls_scan.json](tls_scan.json)
-To be able to send the report to a Slack channel (`-k`) or by mail (`-m`) [tls_scan.py](tls_scan.py) must be provided with API token and/or SMTP credentials. The same [config file](tls_scan.json) is used to specify a list of hosts to scan:
+To be able to send the report to a Slack channel (`-k`) or by mail (`-m`) [tls_scan.py](tls_scan.py) must be provided with an API token and/or SMTP credentials. The same [config file](tls_scan.json) is used to specify a list of hosts to scan:
 ```json
 {
 	"server": "smtp.gmail.com:587",
