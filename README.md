@@ -29,7 +29,7 @@ The code in this repository allows you to scan a list of public TLS/SSL web serv
 
 Running (*up to* **_10_**) concurrent assessments is supported (`-s`), but please keep down the number of concurrent assessments to a minimum. If you're not in a hurry, test only one hostname at a time (default).
 
-The grade report can then be sent by mail (`-m`) or written to **_stdout_**:
+The grade report can then be sent to a Slack channel (`-k`), by mail (`-m`) or written to **_stdout_**:
 
 ```
 [A+] artioml.net, 0e411f05, Ready (121 sec.)
@@ -46,6 +46,14 @@ Printing full assessment JSONs is also supported (`-j`).
 [Requests](http://docs.python-requests.org/en/master/user/install/#install) HTTP library:
 ```shell
 pip install requests
+```
+[Slack Developer Kit](https://slackapi.github.io/python-slackclient/):
+```shell
+pip install slackclient
+```
+Or simply:
+```shell
+pip install -r requirements.txt
 ```
 ### Git
 ```shell
