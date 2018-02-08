@@ -35,6 +35,9 @@ objSLA = reapi.clsSLA()
 strMFrom = 'tls-scan v%s' % __version__
 strMSubj = 'TLS/SSL Scan Report'
 
+# Slack icon
+strSIcon = 'https://raw.githubusercontent.com/ArtiomL/tls-scan/master/img/a.png'
+
 # Exit codes
 class clsExCodes(object):
 	def __init__(self):
@@ -112,7 +115,7 @@ def funArgParser():
 	objArgParser.add_argument('-c', help ='deliver cached assessment reports if available', action = 'store_true', dest = 'cache')
 	objArgParser.add_argument('-f', help ='config file location', dest = 'cfile')
 	objArgParser.add_argument('-i', help ='show IP addresses (default: first 8 chars of their SHA-256)', action = 'store_true', dest = 'ips')
-	objArgParser.add_argument('-j', help ='return assessment JSONs (default: grades only), disables -m and -k', action = 'store_true', dest = 'json')
+	objArgParser.add_argument('-j', help ='return assessment JSONs (default: grades), disables -m and -k', action = 'store_true', dest = 'json')
 	objArgParser.add_argument('-k', help ='send report to a Slack channel', action = 'store_true', dest = 'slack')
 	objArgParser.add_argument('-l', help ='set log level (default: 0)', choices = [0, 1, 2, 3], type = int, dest = 'log')
 	objArgParser.add_argument('-m', help ='send report by mail', action = 'store_true', dest = 'mail')
@@ -188,6 +191,15 @@ def main():
 
 	# Sort the grades in reverse and add line breaks
 	strReport = '\r\n'.join(sorted(lstGrades, reverse = True))
+
+	# Send the report to a Slack channel
+	if objArgs.slack and not objArgs.json:
+		log.funLog(1, 'Slacking the report...')
+		try:
+			objSlack = slackclient.SlackClient(diCfg['token'].decode('base64'))
+			objSlack.api_call('chat.postMessage', username = strMFrom, channel = diCfg['channel'], text = '```\n%s\n```' % strReport, icon_url = strSIcon)
+		except Exception as e:
+			log.funLog(2, repr(e), 'err')
 
 	# Mail the report
 	if objArgs.mail and not objArgs.json:
