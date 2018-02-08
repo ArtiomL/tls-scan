@@ -47,7 +47,7 @@ Printing full assessment JSONs is also supported (`-j`).
 ```shell
 pip install requests
 ```
-[Slack Developer Kit](https://slackapi.github.io/python-slackclient/):
+Slack [Developer Kit](https://slackapi.github.io/python-slackclient/):
 ```shell
 pip install slackclient
 ```
@@ -62,7 +62,7 @@ git clone https://github.com/ArtiomL/tls-scan.git
 or [download](https://github.com/ArtiomL/tls-scan/archive/master.zip).
 
 ### [tls_scan.json](tls_scan.json)
-To be able to send the report by mail (`-m`) [tls_scan.py](tls_scan.py) must be provided with SMTP credentials. The same [config file](tls_scan.json) is used to specify a list of hosts to scan:
+To be able to send the report to a Slack channel (`-k`) or by mail (`-m`) [tls_scan.py](tls_scan.py) must be provided with API token and/or SMTP credentials. The same [config file](tls_scan.json) is used to specify a list of hosts to scan:
 ```json
 {
 	"server": "smtp.gmail.com:587",
@@ -70,6 +70,8 @@ To be able to send the report by mail (`-m`) [tls_scan.py](tls_scan.py) must be 
 	"pass": "d293TXVjaEZha2Ux",
 	"from": "marla@gmail.com",
 	"to": "tyler@gmail.com; chloe@gmail.com",
+	"token": "eG94Yi1YWFhYWFhYWFhYWFgtVFRUVFRUVFRUVFRUVFQ=",
+	"channel": "#code",
 	"hosts": [
 		"example.com",
 		"example.net",
@@ -86,6 +88,8 @@ Schema:
 | pass       | password ([base64-encoded](https://github.com/ArtiomL/tls-scan/issues/17#issuecomment-286020627)) |
 | from       | from-address string ([RFC 822](https://tools.ietf.org/html/rfc822.html)) |
 | to         | to-address(es) - delimit with `;` |
+| token      | Slack bot API token (base64-encoded) |
+| channel    | Slack channel ID or name |
 | hosts      | list of hosts to scan |
 
 &nbsp;&nbsp;
@@ -102,7 +106,7 @@ This is the actual scan / report logic.
 Run this program with command-line [arguments](#--help) relevant to your use case. For example:
 ```shell
 chmod u+x tls_scan.py
-./tls_scan.py -f tls_scan.json -i -l2 -m -s3
+./tls_scan.py -f tls_scan.json -i -k -l2 -m -s3
 ```
 Using cron (or a similar time-based job scheduler) to perform recurring, periodic scans is recommended.
 
@@ -124,7 +128,7 @@ If run interactively, **_stdout_** is used for log messages (unless `-j` is set)
 ## --help
 ```
 ./tls_scan.py --help
-usage: tls_scan.py [-h] [-c] [-f CFILE] [-i] [-j] [-l {0,1,2,3}] [-m]
+usage: tls_scan.py [-h] [-c] [-f CFILE] [-i] [-j] [-k] [-l {0,1,2,3}] [-m]
                    [-s [2-10]] [-t] [-v]
                    [HOST [HOST ...]]
 
@@ -138,7 +142,8 @@ optional arguments:
   -c            deliver cached assessment reports if available
   -f CFILE      config file location
   -i            show IP addresses (default: first 8 chars of their SHA-256)
-  -j            return assessment JSONs (default: grades only), disables -m
+  -j            return assessment JSONs (default: grades), disables -m and -k
+  -k            send report to a Slack channel
   -l {0,1,2,3}  set log level (default: 0)
   -m            send report by mail
   -s [2-10]     number of simultaneous assessments (default: 1)
