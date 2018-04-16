@@ -19,7 +19,7 @@ __version__ = '1.0.4'
 class clsSLA(object):
 	def __init__(self):
 		# API entry point
-		self.strAPIE = 'https://api.ssllabs.com/api/v2/'
+		self.strAPIE = 'https://api.ssllabs.com/api/v3/'
 		# API call: info
 		self.strInfo = 'info'
 		# API call: analyze
