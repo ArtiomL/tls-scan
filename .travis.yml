@@ -1,7 +1,7 @@
 # tls-scan - Build
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.2, 08/02/2018
+# v1.0.3, 16/04/2018
 
 sudo: false
 
@@ -11,6 +11,7 @@ python:
 
 before_install:
   - chmod +x tls_scan.py
+  - pip install --upgrade pip
 
 install:
   - pip install -r requirements.txt
