@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # tls-scan - lib: REST API
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.5, 25/08/2018
+# v1.1.0, 06/11/2018
 
 import hashlib
 import json
@@ -94,7 +94,7 @@ class clsSLA(object):
 			if strStaMess == 'Ready':
 				strGrade = diEP['grade'] if not self.boolIM else diEP['gradeTrustIgnored']
 			# Show actual endpoint IP address or the first 8 chars of its SHA-256 hash
-			strIP = diEP['ipAddress'] if self.boolIPs else hashlib.sha256(diEP['ipAddress']).hexdigest()[:8]
+			strIP = diEP['ipAddress'] if self.boolIPs else hashlib.sha256(diEP['ipAddress'].encode('utf-8')).hexdigest()[:8]
 			lstGrades.append('[%s] %s, %s, %s (%s sec.)' % (strGrade, diOper['host'], strIP, strStaMess, str(diEP['duration'] / 1000)))
 		return lstGrades
 
