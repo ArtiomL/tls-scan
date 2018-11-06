@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # tls-scan - lib: Config File R/W
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
