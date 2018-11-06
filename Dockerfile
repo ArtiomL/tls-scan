@@ -1,14 +1,14 @@
 # tls-scan - Dockerfile
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.0, 06/11/2018
+# v1.0.1, 06/11/2018
 
 FROM alpine
 
-LABEL maintainer="Artiom Lichtenstein" version="1.0.0"
+LABEL maintainer="Artiom Lichtenstein" version="1.0.1"
 
 # Core dependencies
-RUN apk add --update --no-cache git python3 && \
+RUN apk add --update --no-cache bash git python3 && \
 	pip3 install --no-cache-dir --upgrade pip && \
 	pip3 install --no-cache-dir requests slackclient && \
 	pip3 uninstall -y pip setuptools && \
