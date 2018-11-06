@@ -1,23 +1,32 @@
-# tls-scan - Build
+# tls-scan - CI Build
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.0.3, 16/04/2018
+# v1.1.0, 06/11/2018
 
-sudo: false
+sudo: required
+
+env:
+  global:
+  - REPO="artioml/tls-scan"
 
 language: python
 python:
-  - 2.7
+  - "3.6"
+
+services:
+  - docker
 
 before_install:
-  - chmod +x tls_scan.py
-  - pip install --upgrade pip
+  - pip3 install --upgrade pip
 
 install:
-  - pip install -r requirements.txt
+  - pip3 install -r requirements.txt
 
 script:
   - ./tls_scan.py -c artioml.net
+  - docker build -t $REPO .
+  - docker images
+  - docker run --rm $REPO ./tls_scan.py -c artioml.net
 
 notifications:
   slack:
