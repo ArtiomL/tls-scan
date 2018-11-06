@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # tls-scan - lib: Logging
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
