@@ -2,10 +2,11 @@
 # tls-scan - Automated TLS/SSL Server Tests for Multiple Hosts
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.3.0, 06/11/2018
+# v1.3.1, 10/11/2018
 
 import argparse
 import atexit
+import base64
 import email.mime.text as email
 import json
 import lib.cfg as cfg
@@ -20,13 +21,13 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '1.3.0'
+__version__ = '1.3.1'
 
 # Config file
 strCFile = 'tls_scan.json'
 
 # Log prefix
-log.strLogID = '[-v%s-181106-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
+log.strLogID = '[-v%s-181110-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
 
 # SSL Labs REST API
 objSLA = reapi.clsSLA()
@@ -126,6 +127,10 @@ def funArgParser():
 	return objArgParser.parse_args()
 
 
+def funB64D(strEncoded):
+	return base64.b64decode(strEncoded).decode('utf-8')
+
+
 def main():
 	global objSLA, strCFile, lstGrades, strMHead
 	objArgs = funArgParser()
@@ -196,7 +201,7 @@ def main():
 	if objArgs.slack and not objArgs.json:
 		log.funLog(1, 'Slacking the report...')
 		try:
-			objSlack = slackclient.SlackClient(diCfg['token'].decode('base64'))
+			objSlack = slackclient.SlackClient(funB64D(diCfg['token']))
 			diSResp = objSlack.api_call('chat.postMessage', username = strMFrom, channel = diCfg['channel'], text = '```\n%s\n```' % strReport, icon_url = strSIcon)
 			if not diSResp['ok']:
 				raise Exception(diSResp['error'])
@@ -221,7 +226,7 @@ def main():
 			# Encryption
 			objMail.starttls()
 			# Authentication
-			objMail.login(diCfg['user'], diCfg['pass'].decode('base64'))
+			objMail.login(diCfg['user'], funB64D(diCfg['pass']))
 			# Send mail
 			objMail.sendmail(diCfg['from'], lstTo, objMIME.as_string())
 			log.funLog(1, 'Success!')
