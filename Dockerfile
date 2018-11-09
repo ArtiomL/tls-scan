@@ -22,6 +22,9 @@ WORKDIR /opt/tls-scan/
 RUN adduser -u 1001 -D user
 RUN chown -RL user: /opt/tls-scan/
 
+# Environment variables
+ENV PATH="/opt/tls-scan:${PATH}"
+
 # UID to use when running the image and for CMD
 USER 1001
 
