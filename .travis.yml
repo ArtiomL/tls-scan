@@ -1,13 +1,15 @@
 # tls-scan - CI Build
 # https://github.com/ArtiomL/tls-scan
 # Artiom Lichtenstein
-# v1.1.0, 06/11/2018
+# v1.1.1, 10/11/2018
 
 sudo: required
 
 env:
   global:
   - REPO="artioml/tls-scan"
+  - secure: "OhC5zBw1Y4sJz89ZltNGTmyJjIGnAU2rzEYEcVu7g3AUJARUo4p7ChTeYg5FRHTksTXaTdjV5rHkCPgDWF7SaaYvqWtVNRBRSucU/AP8OuvLIMmKhJQLUIKxsoK1CGNSbC13r3j7PycUYp/WYMgqHcEP0/N2+Vpu0PYxiecYKd2j+3n2o2HQbni5z+/v5jinMWWl/MhCksUJWheR+iCcLw2WWuuAYMYJQI+JtyRTFXcxTpFCuPPi0LCAQWxMor5ZRCh3HXR/o+ATmSLo/J/9FP512yGTxWZGxzKH2gepfsgQ/G6BezLgIydcESkRDFSX4vm24e26HEELYd/Dr19DN9LwugCC8om8FHfhCuZEXfcDjoIT9Xloc0Kpej7fgBevSedpDazeENLSma4v0yFkTDPDEMGLev7xZAyi95Bq/EsKVFQKVWCZg0aEVWHo8IpoVAawm/wXkO2natFaZ6IdcHx4FpWeIuLBsn085wIMf/89PxYT0XG0FG/gCgfRDBmliKCkozNtHzCXkwoCPSyGrtzCkW3s7N4a/BcI3tKjFWBWYKBuJHanYHbf8UxMPSOox5kcE+2kVC6SBGWQbulMbqVUAYz20W9zqTSixSnS5hYZ22mlpWEUHqbKH9ZCUPzIxTcd5xxwrzjUGqu+JyVqK2XJ/g+SYUaZSa55X2LDMDI="
+  - secure: "QJXChvP805bmW1lHnxOxgK24mHuRj7+Bo67v5H4Gk2Ptmw0tZ9ZE9raLPwyF6Skz5q9lT4+jwe1Fwtz4M0DVX8oAb78EoDKOaCNPwWG2/alfu5+yCX3si8hDleid7kpbBhvVjq3naoF3MCzWZL9lAvBW0cN8dBRhbmgA02hl2yqEcEgTTWZg2dqVO5fR9p4HUvzdWgX0xwzCnpbrDiSTNtJPIekebW/LGj+X0P0UohkFO38FQJ1gVAXSDqWpixGUFW3wzAXErgayc5rhgssHf7KaKzAl/Y3v1Qr9ysMCMAOSlJhaVdfHtYxAGd/J/i8rUpBSLl6QAgIvaSpWQOabU7vALrXtZmOI1PjgQU3WIZWYNzBYEj9l6b/bLdJVjfKp8Fxgnsll8uwwbhJkSdRTOsQmTSP7vNax4G8RIFUblHJ5VQb2z8xo1n6AMyC4EnRWS06k7BCawWpAYha6Za7j54vfTEth3YUwQaLjzmyhtdYwKcrDuNmcaNiv1QTGrJSzF9UvHPEmaJElar3sNDxd7E2PhdEH5zOfAbzTzGZ57oaUlKon9n2dTkvYkoMeM/BdA7DsmzZLLDXagXCu9CDF0FOE4x+bLvC/MqECoK43IGyrR3IsfKBcsm3jpgiLMWzgTQLnmPyyFvuyeg6kha6EVnXXcz23L5bBeVeQcSJjtuM="
 
 language: python
 python:
@@ -23,10 +25,16 @@ install:
   - pip3 install -r requirements.txt
 
 script:
-  - ./tls_scan.py -c artioml.net
+  - ./tls_scan.py -c -l3 artioml.net
   - docker build -t $REPO .
   - docker images
-  - docker run --rm $REPO ./tls_scan.py -c artioml.net
+  - docker run --rm $REPO tls_scan.py -c -l3 artioml.net
+
+after_success:
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u $DOCKER_USER -p $DOCKER_PASS;
+    docker push $REPO;
+    fi
 
 notifications:
   slack:
