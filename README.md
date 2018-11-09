@@ -13,6 +13,7 @@
 - [Installation](#installation)
 	- [Dependencies](#dependencies)
 	- [Git](#git)
+	- [Docker](#docker)
 	- [tls_scan.json](#tls_scanjson)
 	- [tls_scan.py](#tls_scanpy)
 - [Logging](#logging)
@@ -60,6 +61,11 @@ pip install -r requirements.txt
 git clone https://github.com/ArtiomL/tls-scan.git
 ```
 or [download](https://github.com/ArtiomL/tls-scan/archive/master.zip).
+
+### Docker
+```shell
+docker run -it --rm artioml/tls-scan
+```
 
 ### [tls_scan.json](tls_scan.json)
 To be able to send the report to a Slack channel (`-k`) or by mail (`-m`) [tls_scan.py](tls_scan.py) must be provided with an API token and/or SMTP credentials. The same [config file](tls_scan.json) is used to specify a list of hosts to scan:
