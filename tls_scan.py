@@ -20,13 +20,13 @@ import time
 
 __author__ = 'Artiom Lichtenstein'
 __license__ = 'MIT'
-__version__ = '1.2.0'
+__version__ = '1.3.0'
 
 # Config file
 strCFile = 'tls_scan.json'
 
 # Log prefix
-log.strLogID = '[-v%s-180825-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
+log.strLogID = '[-v%s-181106-] %s - ' % (__version__, os.path.basename(sys.argv[0]))
 
 # SSL Labs REST API
 objSLA = reapi.clsSLA()
