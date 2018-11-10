@@ -13,6 +13,7 @@
 - [Installation](#installation)
 	- [Dependencies](#dependencies)
 	- [Git](#git)
+	- [Docker](#docker)
 	- [tls_scan.json](#tls_scanjson)
 	- [tls_scan.py](#tls_scanpy)
 - [Logging](#logging)
@@ -42,6 +43,7 @@ Printing full assessment JSONs is also supported (`-j`).
 &nbsp;&nbsp;
 
 ## Installation
+
 ### Dependencies
 [Requests](http://docs.python-requests.org/en/master/user/install/#install) HTTP library:
 ```shell
@@ -55,11 +57,20 @@ Or simply:
 ```shell
 pip install -r requirements.txt
 ```
+
 ### Git
 ```shell
 git clone https://github.com/ArtiomL/tls-scan.git
 ```
 or [download](https://github.com/ArtiomL/tls-scan/archive/master.zip).
+
+### Docker
+```shell
+# Shell
+docker run -it --rm artioml/tls-scan
+# Non-interactive
+docker run -it --rm artioml/tls-scan tls_scan.py --help
+```
 
 ### [tls_scan.json](tls_scan.json)
 To be able to send the report to a Slack channel (`-k`) or by mail (`-m`) [tls_scan.py](tls_scan.py) must be provided with an API token and/or SMTP credentials. The same [config file](tls_scan.json) is used to specify a list of hosts to scan:
@@ -99,6 +110,7 @@ The config file path is controlled by the `-f` command line argument or the `str
 # Config file
 strCFile = 'tls_scan.json'
 ```
+
 ### [tls_scan.py](tls_scan.py)
 This is the actual scan / report logic.
 &nbsp;&nbsp;
