@@ -43,6 +43,7 @@ Printing full assessment JSONs is also supported (`-j`).
 &nbsp;&nbsp;
 
 ## Installation
+
 ### Dependencies
 [Requests](http://docs.python-requests.org/en/master/user/install/#install) HTTP library:
 ```shell
@@ -56,6 +57,7 @@ Or simply:
 ```shell
 pip install -r requirements.txt
 ```
+
 ### Git
 ```shell
 git clone https://github.com/ArtiomL/tls-scan.git
@@ -64,7 +66,10 @@ or [download](https://github.com/ArtiomL/tls-scan/archive/master.zip).
 
 ### Docker
 ```shell
+# Shell
 docker run -it --rm artioml/tls-scan
+# Non-interactive
+docker run -it --rm artioml/tls-scan tls_scan.py --help
 ```
 
 ### [tls_scan.json](tls_scan.json)
@@ -105,6 +110,7 @@ The config file path is controlled by the `-f` command line argument or the `str
 # Config file
 strCFile = 'tls_scan.json'
 ```
+
 ### [tls_scan.py](tls_scan.py)
 This is the actual scan / report logic.
 &nbsp;&nbsp;
