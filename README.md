@@ -70,6 +70,8 @@ or [download](https://github.com/ArtiomL/tls-scan/archive/master.zip).
 docker run -it --rm artioml/tls-scan
 # Non-interactive
 docker run -it --rm artioml/tls-scan tls_scan.py --help
+# Extensibility
+docker run -it --rm -e "REPO=drwetter/testssl.sh" artioml/tls-scan
 ```
 
 ### [tls_scan.json](tls_scan.json)
