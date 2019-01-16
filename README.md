@@ -1,8 +1,8 @@
 # <img align="center" src="img/a.png" height="64">&nbsp;&nbsp;tls-scan
 [![Build Status](https://img.shields.io/travis/ArtiomL/tls-scan.svg)](https://travis-ci.org/ArtiomL/tls-scan)
 [![Releases](https://img.shields.io/github/release/ArtiomL/tls-scan.svg)](https://github.com/ArtiomL/tls-scan/releases)
-[![Commits](https://img.shields.io/github/commits-since/ArtiomL/tls-scan/v1.0.6.svg?label=commits%20since)](https://github.com/ArtiomL/tls-scan/commits/master)
-[![Maintenance](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/ArtiomL/tls-scan/graphs/code-frequency)
+[![Commits](https://img.shields.io/github/commits-since/ArtiomL/tls-scan/v1.3.1.svg?label=commits%20since)](https://github.com/ArtiomL/tls-scan/commits/master)
+[![Maintenance](https://img.shields.io/maintenance/yes/2019.svg)](https://github.com/ArtiomL/tls-scan/graphs/code-frequency)
 [![Issues](https://img.shields.io/github/issues/ArtiomL/tls-scan.svg)](https://github.com/ArtiomL/tls-scan/issues)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
@@ -70,6 +70,8 @@ or [download](https://github.com/ArtiomL/tls-scan/archive/master.zip).
 docker run -it --rm artioml/tls-scan
 # Non-interactive
 docker run -it --rm artioml/tls-scan tls_scan.py --help
+# Extensibility
+docker run -it --rm -e "REPO=drwetter/testssl.sh" artioml/tls-scan
 ```
 
 ### [tls_scan.json](tls_scan.json)
